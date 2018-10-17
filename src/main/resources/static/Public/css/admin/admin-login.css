@@ -1,0 +1,9 @@
+.xiaotext {
+	LINE-HEIGHT: 180%; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #078fe8; FONT-SIZE: 12px
+}
+.xiaotext2 {
+	LINE-HEIGHT: 180%; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #078fe8; FONT-SIZE: 11px
+}
+.loginiput {
+	BORDER-BOTTOM: #078fe8 1px solid; BORDER-LEFT: #078fe8 1px solid; BACKGROUND-COLOR: #fff; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; COLOR: #666; FONT-SIZE: 12px; BORDER-TOP: #078fe8 1px solid; BORDER-RIGHT: #078fe8 1px solid;outline:none; 
+}

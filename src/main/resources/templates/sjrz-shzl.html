@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/Public/css/common.css}" />
+	</head>
+
+	<body>
+		<!--header-->
+		<div class="header" id="botop">
+			<div class="h_top">
+				<div class="b_box">
+					<div class="top_nav">
+						<a href="">首页</a><span class="ht_line"></span>
+						<a href="">商家入驻</a><span class="ht_line"></span>
+						<a href="">帮助中心</a><span class="ht_line"></span>
+						<a href="">关于韩汀</a><span class="ht_line"></span>
+						<a href="">联系我们</a>
+					</div>
+					<div class="top_right login_right">
+						<a href="">yuno</a> <span class="ht_line"></span>
+						<a href="">退出</a>
+						<span class="ht_line"></span>
+						<a href=""><img th:src="@{/Public/images/e_i.png}" alt=""></a>
+					</div>
+				</div>
+			</div>
+			<div class="b_box nav_header community_header">
+				<a href="" class="logo logo_community">御品韩汀.社区</a>
+				<ul class="nav_ul">
+					<li>
+						<a href=""><span class="community_sp csp1"></span><br>自驾游</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp2"></span><br>微整形</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp3"></span><br>留学中介</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp4"></span><br>韩语翻译</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp5"></span><br>学习资源</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp6"></span><br>韩汀物流</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp7"></span><br>韩汀·论坛 中文</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--header end-->
+
+		<div class="bg_c5 ptb2">
+			<div class="business_settled_info_step">
+				<div class="business_settled_info_spress"></div>
+				<ul class="business_settled_info_press_ul">
+					<li class="cur">
+						<p class="mbsp_text3">入驻须知</p>
+					</li>
+					<li class="cur">
+						<p class="mbsp_text3">提交相关申请资料</p>
+					</li>
+					<li class="cur">
+						<p class="mbsp_text3">审核资料</p>
+					</li>
+					<li class="last">
+						<p class="mbsp_text3">开店成功</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="b_box pt1">
+			<h2 class="index_h2_title in2_h2_title c_10">审核资料</h2>
+			<div class="busi_sh_text">感谢您的申请，我们已经收到您的保证金，您提交的资料我们在五个工作日内进行审核，<br>审核通过或资料需要调整会发站内信给您，请留意您的站内信。</div>
+		</div>
+
+		<!--footer-->
+		<div class="footer community_footer_dl">
+			<dl class="footer_dl">
+				<dt>
+					<div class="footer_ewm_box">
+						<img th:src="@{/Public/images/footer_ewm.png}" alt="">
+					</div>
+					<span class="ft_ewm_name">御品韩汀</span>
+				</dt>
+				<dd>
+					<p class="flink">
+						<a href="">商家入驻</a>|
+						<a href="">帮助中心</a>|
+						<a href="">人才招聘</a>|
+						<a href="">联系我们</a>|
+						<a href="">网站地图</a>|
+						<a href="">使用条款</a>
+					</p>
+					<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江二栋2502号 |网站负责人：夏先生 | 邮编：412000</p>
+					<p>官方QQ：3119683838 | 微信公众号：御品韩汀 | 官网邮箱：3119683838@qq.com | 官方热线电话：0731-2286-7673</p>
+					<p>Copyright © 2017 - 2018 yphting.com 版权所有</p>
+				</dd>
+			</dl>
+		</div>
+		<!--footer end-->
+
+		<!--right nav-->
+		<ul class="right_nav">
+			<li>
+				<a href="" class="rn_tel">客服电话</a>
+				<div class="over_show kf_tel">0731-2286-7673</div>
+			</li>
+			<li>
+				<a href="" class="rn_wx">官方微信</a>
+				<div class="over_show"><img th:src="@{/Public/images/r_ewm.jpg}" alt="" class="gw_ewm"></div>
+			</li>
+			<li>
+				<a href="" class="rn_kf">在线客服</a>
+			</li>
+			<li>
+				<a href="" class="rn_top" style="display: none;">Back top</a>
+			</li>
+		</ul>
+		<!--right nav end-->
+	</body>
+	<script type="text/javascript" th:src="@{/Public/js/jquery-1.8.3.min.js}"></script>
+	<script type="text/javascript">
+		jQuery(".right_nav li a.rn_tel, a.rn_wx").hover(function(){
+			jQuery(this).next().show(300);
+		},function(){
+			jQuery(this).next().hide();
+		})
+		jQuery(window).scroll(function() {
+			if(jQuery(window).scrollTop() >= 500) {
+				jQuery(".rn_top").fadeIn(300);
+			} else {
+				jQuery(".rn_top").fadeOut(300);
+			}
+		})
+		jQuery(".rn_top").click(function() {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 500);
+		});
+	</script>
+</html>

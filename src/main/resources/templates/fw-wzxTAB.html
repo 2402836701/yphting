@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>微整形_韩汀社区</title>
+		<link rel="stylesheet" th:href="@{/Public/css/common.css}" />
+		<style type="text/css">
+			.tubiao img{
+				height: 18px;
+			    width: 18px;
+			    margin-right: 19px;
+			}
+		</style>
+	</head>
+	<body>
+		<iframe name="topost" id="topost" style="display:none;"></iframe>
+		<!--header-->
+		<div class="header" id="botop">
+				<div class="h_top">
+				<div class="b_box">
+					<div class="top_nav"><a href="/index.php/">首页</a><span class="ht_line"></span><a href="#">商家入驻</a><span class="ht_line"></span><a href="/index.php/Home/About/help.html">帮助中心</a><span class="ht_line"></span><a href="/index.php/Home/About/index.html">关于韩汀</a><span class="ht_line"></span><a href="/index.php/Home/About/contact.html">联系我们</a></div>
+					<div class="top_right login_right">
+						<a href="/index.php/Home/Seller/index.html">透</a>			<span class="ht_line"></span><a href="/index.php/Home/Member/logout.html">退出</a>
+		            	<span class="ht_line"></span><a href="/index.php/Home/Member/sms.html"><img src="/Public/images/e_i.png" alt=""></a>
+					</div>
+				</div>
+			</div>
+		    <div class="b_box nav_header community_header">
+				<a href="/index.php/" class="logo logo_community">御品韩汀.社区</a>
+				<ul class="nav_ul">
+					<li><a href="/c/lsm/serviceUrl?htmlUrl=fw-zjyTAB&stid=1"><span class="community_sp csp1"></span><br>自驾游</a></li>
+					<li class="cur"><a href="/c/lsm/serviceUrl?htmlUrl=fw-wzxTAB&stid=2"><span class="community_sp csp2"></span><br>微整形</a></li>
+					<li><a href="/c/lsm/serviceUrl?htmlUrl=fw-lxzjTAB&stid=3"><span class="community_sp csp3"></span><br>留学中介</a></li>
+					<li><a href="/c/lsm/serviceUrl?htmlUrl=fw-hyfyTAB&stid=4"><span class="community_sp csp4"></span><br>韩语翻译</a></li>
+					<li><a href="/c/lsm/serviceUrl?htmlUrl=fw-xxzyTAB&stid=5"><span class="community_sp csp5"></span><br>学习资源</a></li>
+					<li><a href="#"><span class="community_sp csp6"></span><br>韩汀物流</a></li>
+					<li><a href="#"><span class="community_sp csp7"></span><br>韩汀·论坛 中文</a></li>
+				</ul>
+			</div>     
+		</div>
+
+		<!--banner-->
+		<div class="other_banner banner_1" style="background:url(/Uploads/desc/2017-01/20170125010031-42965.jpg) center center"></div>
+		<!--banner end-->
+
+		<a href="/index.php/Home/About/help.html" target="_blank" class="zy_box">预定流程指引</a>
+
+		<div class="bg_c2 pt1" id="vmCnt">
+			<div class="b_box">
+				<dl class="community_dl">
+					<dt>韩汀微整形，开启您的美</dt>
+					<dd>
+						<div class="search_sec">
+							<form method="post" action="/index.php/Home/Service/learning.html"><input type="text" name="findkey" placeholder="微整形搜索" class="s_sec_input"><input type="button" class="s_sec_btn" @click="queryServices(1)"><input type="hidden" name="__hash__" value="d2d1b9e1875b57e5099abeb8716d7882_a89ff3f6a76adff42855327dbb39b670"></form>
+						</div>
+					</dd>
+				</dl>
+		
+				<div class="sel_box">
+					<dl class="sel_dl_box">
+						<dt><span class="sel_sp ss1"></span>时间</dt>
+						<dd>
+							<form method="post" action="/index.php/Home/Service/driving.html" onsubmit="return chkdriving()">
+								<input name="startDate" type="date" /><span class="z_span">至</span><input name="endDate" type="date"/>
+								<input type="button" value="搜索" class="submit_c" @click="queryServices(1)">
+							<input type="hidden" name="__hash__" value="c306d668f5470ce4e83adf1167ab5ec7_cc18de89e6d50fd7aedd77928225a667"></form>
+						</dd>
+					</dl>
+					<dl class="sel_dl_box" style="display:block;" th:if="${countryList.size()>0}">
+						<dt><span class="sel_sp ss4"></span>国家</dt>
+						<dd>
+							<a class="cur" href="javascript:void(0);" id="countryAll"> 全部</a>
+							<a href="javascript:void(0);" th:each="temp,iterState : ${countryList}" th:text="${temp.name}" th:attr="data-id=${temp.areaid}" th:v-on:click="|queryCity(${temp.areaid})|">中国</a>
+						</dd>
+						<dd>
+						</dd>
+					</dl>
+					<dl class="sel_dl_box" id="city" style="display:none;">
+						<dt><span class="sel_sp ss2"></span>城市</dt>
+						<dd>
+							<a class="cur" href="javascript:void(0);" id="cityAll">全部</a>
+							<a href="javascript:void(0);" v-for="(temp,index) in cityList" v-text="temp.mergername">首尔特别市</a>
+						</dd>
+					</dl>
+					<dl class="sel_dl_box tubiao" th:if="${serTypeList.size()>0}">
+						<dt><span><img src="/Public/Wap/images/fenlei.png"></span>类别</dt>
+						<dd>
+							<a class="cur" href="javascript:void(0);" id="typeAll">全部</a>
+							<a href="javascript:void(0);" th:each="temp,iterState : ${serTypeList}" th:text="${temp.stname}" th:attr="data-id=${temp.stid}" th:v-on:click="|queryServiceTypeChild(${temp.stid})|">英语资料</a>
+						</dd>
+					</dl>
+					<dl class="sel_dl_box sonType" style="display:none;">
+						<dt><span><img src="/Public/Wap/images/zilei.png"></span>子类别</dt>
+						<dd>
+							<a v-for="(temp,index) in serviceTypeChild" href="javascript:void(0);" :data-id="temp.stid" v-text="temp.stname">韩语初级资料</a>			
+						</dd>
+					</dl>
+					<dl class="sel_dl_box" th:if="${serLevelList.size()>0}">
+						<dt><span class="sel_sp ss3"></span>级别</dt>
+						<dd>
+							<a class="cur" href="javascript:void(0);" id="levelAll">全部</a>
+							<a href="javascript:void(0);" th:each="temp,iterState : ${serLevelList}" th:text="${temp.serlevelname}" th:attr="data-min=${temp.serviceintegralmin},data-max=${temp.serviceintegralmax}">韩汀童生</a>
+						</dd>
+					</dl>
+					<dl class="sel_dl_box">
+						<dt><span class="sel_sp ss4"></span>鉴定</dt>
+						<dd data-id="0"><a class="cur" href="javascript:void(0);" id="authenticationAll" data-id="0">全部</a>
+						<a href="javascript:void(0);" data-id="1">官方鉴定</a>
+						<a href="javascript:void(0);" data-id="2">商家自营</a></dd>
+					</dl>
+				</div>
+				
+				<ul class="rank_ul">
+					<li class="cur" id="synthesizeOrderBy"><a href="javascript:void(0);">综合排序</a></li>
+		            <li id="pop"><a href="javascript:void(0);">人气<span class="rank_i"></span></a></li>
+		            <li id="price"><a href="javascript:void(0);">价格<span class="rank_i"></span></a></li>
+				</ul>
+				
+		        <div class="rank_box">
+		        	<ul class="rank_list_ul">
+						<li v-for="(temp,index) in pageInfo.list">
+		                	<a :href="'/c/lsm/serviceDetailUrl?htmlUrl=fw-xxzyXQ&sid='+temp.serviceID+'&uid='+temp.userID" class="rank_one_a">
+			                    <div class="star_img">
+			                    	<img v-if="temp.recommendBool==true" style="z-index:3;position: absolute;" src="/Public/images/tj.png" width="50" height="50"> 
+			                    	<img :src="temp.serviceCoverImg" :alt="temp.serviceTitle" width="380" height="254">
+			                    </div>
+			                    <dl class="rank_text_dl">
+			                    	<dt v-text="temp.serviceTitle">测试资源主标题</dt>
+			                        <dd>
+			                        	<div class="i_3" v-text="temp.servicePrice">100</div>
+			                        	<div class="star_pl"><span class="star_pl_sp" style="width:60%;"></span></div>
+			                        </dd>
+			                    </dl>
+							</a>
+							<a href="javascript:void(0);" class="rank_sec_a">
+			                    <dl class="star_user_dl">
+			                        <dt>
+			                        	<img :src="temp.shopImg" :alt="temp.shopName" class="star_user_photo">
+		                        		<img src="/Public/images/hg_i.png" alt="" class="hg_i l_hi">   
+			                        </dt>
+			                        <dd>
+			                            <div class="star_user_name_s">
+			                            	<h3 class="star_user_name" v-text="temp.shopName">小明同学</h3>
+			                            </div>
+			                            <p class="star_user_text"></p>
+			                        </dd>
+			                    </dl>
+		                    </a>
+		                </li>
+		            </ul>
+		            
+		            <!--page-->
+		            <div class="page_w">
+		            	<div class="page">
+							<div class="nav">
+								<a v-if="pageInfo.prePage!=0" class="page_prev prevdisabled" href="javascript:void(0);" @click="queryServices(pageInfo.prePage)">上一页</a>
+									<span v-for="(temp,index) in pageInfo.pages" v-if="pageInfo.pageNum==temp" class="cur" v-text="temp">1</span>
+									<a v-else class="num" href="javascript:void(0);" @click="queryServices(temp)" v-text="temp">2</a> 
+								<a v-if="pageInfo.nextPage!=0" class="page_next" href="javascript:void(0);"  @click="queryServices(pageInfo.nextPage)">下一页</a>
+							</div>                
+						</div>
+		            </div>
+		            <!--page end-->
+		        </div>
+				
+					<!--ad-->
+				<div class="ad_box2">
+				<a href=""><img src="/Uploads/adv/2018-04/20180414123932-28064.jpg" alt="底部广告 说吧"></a>	</div>
+				<!--ad end-->
+			</div>
+		</div>
+
+
+<div class="b_box"></div>
+
+<!--footer-->
+<div class="footer community_footer_dl">
+	<dl class="footer_dl">
+		<dt>
+		<div class="footer_ewm_box"><img src="/Public/images/footer_ewm.png" alt=""></div>
+			<span class="ft_ewm_name">御品韩汀</span>
+		</dt>
+		<dd>
+			<p class="flink"><a href="/index.php/Home/Member/seller.html">商家入驻</a>|<a href="/index.php/Home/About/help.html">帮助中心</a>|<a href="/index.php/Home/About/index/key/jobs.html">人才招聘</a>|<a href="/index.php/Home/About/contact.html">联系我们</a>|<a href="/index.php/Home/About/sitemap.html">网站地图</a>|<a href="/index.php/Home/About/terms.html">使用条款</a></p>
+			<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江二栋2502号 |网站负责人：夏先生 |   邮编：412000</p>
+
+			<p>官方QQ：3119683838 | 微信公众号：御品韩汀 | 官网邮箱：3119683838@qq.com | 官方热线电话：0731-2286-7673</p>
+
+			<p>Copyright © 2017 - 2018 yphting.com 版权所有</p>		</dd>
+	</dl>
+</div>
+<!--footer end-->
+
+<!--right nav-->
+<ul class="right_nav">
+	<li><a href="javascript:void(0);" class="rn_tel">客服电话</a><div class="over_show kf_tel">0731-2286-7673</div></li>
+	<li><a href="javascript:void(0);" class="rn_wx">官方微信</a><div class="over_show"><img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm"></div></li>
+	<li><a href="tencent://Message/?Uin=3119683838&amp;websiteName=http://yphting.zglxkj.com=&amp;Menu=yes" class="rn_kf">在线客服</a></li>
+	<li><a href="#" class="rn_top" style="display: none;">Back top</a></li>
+</ul>
+
+</body>
+	<script type="text/javascript " th:src="@{/Public/js/jquery-1.8.3.min.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/vue.js}"></script>
+	<script th:inline="javascript">
+		var vm = new Vue({
+			el:"#vmCnt",
+			data:{
+				pageInfo:{
+					list:[]
+				},
+				serviceTypeChild:[],
+				cityList:[]
+			},
+			created:function(){
+				var vm = this;
+				vm.queryServices(1);
+			},
+			methods:{
+				//根据条件查询服务
+				queryServices:function(num){
+					var vm = this;
+					var stid = [[${param.stid}]][0];
+					var obj = {};
+					//如果文本框不为空
+					if(jQuery("[name=findkey]").val()!=''){
+						obj["txt"]=jQuery("[name=findkey]").val();
+					}
+					//如果开始时间不为空
+					if(jQuery("[name=startDate]").val()!=""){
+						obj["startDate"]=jQuery("[name=startDate]").val();
+					}
+					//如果结束时间不为空
+					if(jQuery("[name=endDate]").val()!=""){
+						obj["endDate"]=jQuery("[name=endDate]").val();
+					}
+					//如果国家不是全部
+					if(jQuery("#countryAll").parent().attr("data-id")!=null){
+						obj["country"]=jQuery("#countryAll").parent().attr("data-id");
+					}
+					//如果城市不是全部
+					if(jQuery("#city dd .cur").text()!="全部"&&jQuery("#countryAll").parent().attr("data-id")!=null){
+						obj["city"]=jQuery("#city dd .cur").text();
+					}
+					//一级服务
+					if(jQuery(".sonType").css("display")=="none"&&jQuery(".tubiao>dd").attr("data-id")==null){
+						obj["firstStid"]=stid;
+					}
+					//二级服务
+					else if(jQuery(".sonType").css("display")=="block"&&jQuery(".sonType dd").attr("data-id")==null&&jQuery(".tubiao>dd").attr("data-id")!=null || jQuery(".sonType").css("display")=="none"&&jQuery(".tubiao>dd").attr("data-id")!=null){
+						obj["stid"]=jQuery(".tubiao>dd").attr("data-id");
+					}
+					//三级服务
+					else if(jQuery(".sonType").css("display")=="block"&&jQuery(".sonType dd").attr("data-id")!=null){
+						obj["stidChild"]=jQuery(".sonType dd").attr("data-id");
+					}
+					//如果级别不为全部
+					if(jQuery("#levelAll").parent().attr("data-min")!=null&&jQuery("#levelAll").parent().attr("data-max")!=null){
+						obj["transactionValueMin"]=jQuery("#levelAll").parent().attr("data-min");
+						obj["transactionValueMax"]=jQuery("#levelAll").parent().attr("data-max");
+						obj["transactionValueID"]=stid;
+					}
+					//如果当前排序不是综合排序
+					if(jQuery("#synthesizeOrderBy").parent().find(".cur").attr("id")=="pop"&&jQuery("#synthesizeOrderBy").parent().find(".cur a").attr("class")==null){
+						obj["orderByPop"]=1;
+					}else if(jQuery("#synthesizeOrderBy").parent().find(".cur").attr("id")=="pop"&&jQuery("#synthesizeOrderBy").parent().find(".cur a").attr("class")!=null){
+						obj["orderByPop"]=2;
+					}else if(jQuery("#synthesizeOrderBy").parent().find(".cur").attr("id")=="price"&&jQuery("#synthesizeOrderBy").parent().find(".cur a").attr("class")==null){
+						obj["orderByPrice"]=1;
+					}else if(jQuery("#synthesizeOrderBy").parent().find(".cur").attr("id")=="price"&&jQuery("#synthesizeOrderBy").parent().find(".cur a").attr("class")!=null){
+						obj["orderByPrice"]=2;
+					}
+					obj["authentication"]=jQuery("#authenticationAll").parent().attr("data-id");
+					jQuery.getJSON("/c/lsm/api/queryServices",{"objJSON":JSON.stringify(obj),"num":num,"size":1},function(data){
+						vm.pageInfo = data;
+						console.info(data);
+					})
+				},
+				//点击类别加载对应的子类别
+				queryServiceTypeChild:function(stpid){
+					var vm = this;
+					if(jQuery(".sonType").attr("data-id")!=stpid){
+						jQuery.getJSON("/c/lsm/api/queryServiceTypeChild",{"stpid":stpid},function(data){
+							if(data.length==0){
+								jQuery(".sonType").removeAttr("data-id").hide();
+							}else{
+								jQuery(".sonType").attr("data-id",stpid).show().find("dd a.cur").removeClass();
+								jQuery(".sonType").find("dd").removeAttr("data-id");
+							}
+							vm.serviceTypeChild = data;
+							console.info(vm.serviceTypeChild);
+						})
+					}else{
+						jQuery(".sonType").find("dd").removeAttr("data-id");
+						jQuery(".sonType").find("dd a.cur").removeClass();
+					}
+				},
+				//点击国家查询城市
+				queryCity:function(areaid){
+					var vm = this;
+					jQuery.getJSON("/c/lsm/api/queryCity",{"areaid":areaid},function(data){
+						if(data.length==0){
+							jQuery("#city").hide();
+							vm.cityList=[];
+						}
+						vm.cityList = data;
+						jQuery("#city").show();
+						jQuery("#city dd .cur").removeClass();
+					})
+
+				}
+			}
+		})
+		//点击条件
+		jQuery(".sel_box dl dd a").live("click",function(){
+			jQuery(this).attr("class","cur").siblings().removeAttr("class");
+			jQuery(this).parent().attr("data-id",jQuery(this).attr("data-id"));
+			if(jQuery(this).parent().find("a:eq(0)").attr("id")=="levelAll"){
+				jQuery(this).parent().attr("data-min",jQuery(this).attr("data-min"));
+				jQuery(this).parent().attr("data-max",jQuery(this).attr("data-max"));
+			}
+			if(jQuery(this).attr("id")=="countryAll"){
+				jQuery("#city").hide();
+				jQuery("#city dd .cur").removeClass();
+				jQuery(this).parent().removeAttr("data-id");
+			}
+			if(jQuery(this).attr("id")=="typeAll"){
+				jQuery(".sonType").removeAttr("data-id").hide().find("dd a.cur").removeClass();
+				jQuery(this).parent().removeAttr("data-id");
+			}else if(jQuery(this).attr("id")=="levelAll"){
+				jQuery(this).parent().removeAttr("data-min").removeAttr("data-max");
+			}
+			vm.queryServices(1);
+		});
+		//点击排序
+		jQuery(".rank_ul li").click(function(){
+			jQuery(this).attr("class","cur").siblings().removeAttr("class");
+			if(jQuery(this).find("a").attr("class")!=null){
+				jQuery(this).find("a").removeAttr("class");
+			}else{
+				jQuery(this).find("a").attr("class","rank_jx");
+			}
+			vm.queryServices(1);
+		});
+		//右下角固定导航栏
+		jQuery(".right_nav li a.rn_tel, a.rn_wx").hover(function(){
+			jQuery(this).next().show(300);
+		},function(){
+			jQuery(this).next().hide();
+		})
+		//如果滚动条距离页面顶部大于等于500px显示回到顶部按钮
+		jQuery(window).scroll(function() {
+			if(jQuery(window).scrollTop() >= 500) {
+				jQuery(".rn_top").fadeIn(300);
+			} else {
+				jQuery(".rn_top").fadeOut(300);
+			}
+		})
+		//点击回到顶部
+		jQuery(".rn_top").click(function() {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 500);
+		});
+	</script>
+
+</html>

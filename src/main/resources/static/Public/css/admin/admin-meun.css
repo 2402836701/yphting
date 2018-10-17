@@ -1,0 +1,96 @@
+BODY {
+	PADDING: 0px;
+	MARGIN: 0px;
+	FONT-SIZE: 12px;
+	BACKGROUND: #e5e5e5;
+	HEIGHT: 100%
+}
+a
+{
+	text-decoration:none;
+	}
+a:hover
+{
+	text-decoration:underline;
+	}
+.b a,.pt a {
+	FONT-FAMILY: Georgia, "Times New Romale", Times, serif; COLOR: #333333; FONT-WEIGHT: bold;
+}
+#leftmenu {
+	width: 180px; HEIGHT: 100%
+}
+#title {
+	BORDER-BOTTOM: #b2b2b2 1px solid; TEXT-INDENT: 30px; width: 180px; BACKGROUND: url(../../images/admincp/bg_pic.gif); HEIGHT: 34px;
+	LINE-HEIGHT: 270%; FONT-FAMILY: verdana; FONT-WEIGHT: bold
+}
+#title a
+{
+	COLOR:#213E7F;
+	}
+
+#menuitem div,#menuitem a
+{
+	DISPLAY: block;
+	width: 180px;
+	FONT-FAMILY: verdana;
+	TEXT-INDENT: 40px;
+	COLOR: #191919;
+	CURSOR: hand; FONT-WEIGHT: bold;LINE-HEIGHT: 220%;
+	}
+.menu_left_one,.menu_left_two,.menu_left_three,.menu_left_four {
+	BORDER-BOTTOM: #c9c9c9 1px solid; HEIGHT: 27px;  BORDER-TOP: #ffffff 1px solid;
+}
+.menu_left_one A,.menu_left_two A,.menu_left_three A,.menu_left_four A {
+	BORDER-BOTTOM: #c9c9c9 1px solid; HEIGHT: 27px;  BORDER-TOP: #ffffff 1px solid;
+}
+.menu_left_hidd A {
+	BORDER-BOTTOM: #c9c9c9 1px solid; HEIGHT: 27px;  BORDER-TOP: #ffffff 1px solid;
+}
+.menu_left_one A:hover {
+	BACKGROUND: url(../../images/admincp/icon1.gif) #ebe7c6 no-repeat 17px 7px
+
+}
+.menu_left_one {
+	BACKGROUND: url(../../images/admincp/icon1.gif) #fefcec no-repeat 17px 7px
+
+}
+.menu_left_two A:hover {
+	BACKGROUND: url(../../images/admincp/icon2.gif) #ebe7c6 no-repeat 17px 7px
+
+}
+.menu_left_two {
+	BACKGROUND: url(../../images/admincp/icon2.gif) #fefcec no-repeat 17px 7px
+
+}
+.menu_left_three A:hover {
+	text-decoration:none;
+
+}
+.menu_left_three {
+	BACKGROUND: url(../../images/admincp/icon3.gif) #fefcec no-repeat 17px 7px
+
+}
+.menu_left_four A:hover {
+	text-decoration:none;
+
+}
+.menu_left_four {
+	BACKGROUND: url(../../images/admincp/icon4.gif) #fefcec no-repeat 17px 7px
+
+}
+.menu_left_hidd {
+	BACKGROUND: url(../../images/admincp/arrow_right.png) no-repeat 17px 7px
+
+}
+.menu_left_hidd A:link {
+	BACKGROUND: url(../../images/admincp/arrow_right.png) no-repeat 17px 7px
+
+}
+.menu_left_hidd A {
+	BACKGROUND: url(../../images/admincp/arrow_right.png) no-repeat 17px 7px
+
+}
+#menu_left_hidd_1 {
+	DISPLAY: none; HEIGHT: auto
+}
+

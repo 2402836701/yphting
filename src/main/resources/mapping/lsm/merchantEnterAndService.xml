@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 商家入驻 -->
+<mapper namespace="com.accp.dao.lsm.MerchantEnterAndServiceDao">
+	<!-- 自定义：查询所有 -->
+	<sql id="selectAll">
+		select * from
+	</sql>
+	
+	<!-- 查询服务类别（如自驾游、微整形） -->
+	<select id="queryServiceType" resultType="Servicetype">
+		<include refid="selectAll"/>
+		`servicetype`
+		<where>
+			<if test="stpid==null and selectNum==null">
+				`stPid` IS NULL
+			</if>
+			<if test="stpid!=null and selectNum==1">
+				`stPid` = #{stpid}
+			</if>
+			<if test="stpid!=null and selectNum==2">
+				`stPid` = (SELECT `stPid` FROM `servicetype` WHERE `stid` = #{stpid})
+			</if>
+		</where>
+	</select>
+	<!-- 商家入驻 -->
+	<update id="merchantMove">
+		UPDATE `user`
+		<set>
+			<if test="obj.merchanttype!=null and obj.merchanttype!=''">
+				`merchanttype` = #{obj.merchanttype},
+			</if>
+			<if test="obj.firstserviceid!=null and obj.firstserviceid!=''">
+				`firstserviceid` = #{obj.firstserviceid},`firstServiceMoney` = 0,
+			</if>
+			<if test="obj.secondserviceid!=null and obj.secondserviceid!=''">
+				`secondserviceid` = #{obj.secondserviceid},`secondServiceMoney` = 0,
+			</if>
+			<if test="obj.hospitalname!=null and obj.hospitalname!=''">
+				`hospitalname` = #{obj.hospitalname},
+			</if>
+			<if test="obj.shopname!=null and obj.shopname!=''">
+				`shopName` = #{obj.shopname},
+			</if>
+			<if test="obj.userrealname!=null and obj.userrealname!=''">
+				`userrealname` = #{obj.userrealname},
+			</if>
+			<if test="obj.signature!=null and obj.signature!=''">
+				`signature` = #{obj.signature},
+			</if>
+			<if test="obj.shopimg!=null and obj.shopimg!=''">
+				`shopimg` = #{obj.shopimg},
+			</if>
+			<if test="obj.identitytype!=null and obj.identitytype!=''">
+				`identitytype` = #{obj.identitytype},
+			</if>
+			<if test="obj.identitynumder!=null and obj.identitynumder!=''">
+				`identitynumder` = #{obj.identitynumder},
+			</if>
+			<if test="obj.identityrealname!=null and obj.identityrealname!=''">
+				`identityrealname` = #{obj.identityrealname},
+			</if>
+			<if test="obj.country!=null and obj.country!=''">
+				`country` = #{obj.country},
+			</if>
+			<if test="obj.provincialid!=null and obj.provincialid!=''">
+				`provincialid` = #{obj.provincialid},
+			</if>
+			<if test="obj.cityid!=null and obj.cityid!=''">
+				`cityid` = #{obj.cityid},
+			</if>
+			<if test="obj.countyid!=null and obj.countyid!=''">
+				`countyid` = #{obj.countyid},
+			</if>
+			<if test="obj.addetail!=null and obj.addetail!=''">
+				`addetail` = #{obj.addetail},
+			</if>
+			<if test="obj.identitypositiveimg!=null and obj.identitypositiveimg!=''">
+				`identitypositiveimg` = #{obj.identitypositiveimg},
+			</if>
+			<if test="obj.identitynegativeimg!=null and obj.identitynegativeimg!=''">
+				`identitynegativeimg` = #{obj.identitynegativeimg},
+			</if>
+			<if test="obj.identityhandimg!=null and obj.identityhandimg!=''">
+				`identityhandimg` = #{obj.identityhandimg},
+			</if>
+			<if test="obj.languagenametext!=null and obj.languagenametext!=''">
+				`languagenametext` = #{obj.languagenametext},
+			</if>
+			<if test="obj.majornametext!=null and obj.majornametext!=''">
+				`majornametext` = #{obj.majornametext},
+			</if>
+			<if test="obj.livecityid!=null and obj.livecityid!=''">
+				`livecityid` = #{obj.livecityid},
+			</if>
+			<if test="obj.merchantemail!=null and obj.merchantemail!=''">
+				`merchantemail` = #{obj.merchantemail},
+			</if>
+			<if test="obj.merchantphone!=null and obj.merchantphone!=''">
+				`merchantphone` = #{obj.merchantphone},
+			</if>
+			<if test="obj.qq!=null and obj.qq!=''">
+				`qq` = #{obj.qq},
+			</if>
+			<if test="obj.wechat!=null and obj.wechat!=''">
+				`wechat` = #{obj.wechat},
+			</if>
+			<if test="obj.profession!=null and obj.profession!=''">
+				`profession` = #{obj.profession},
+			</if>
+			<if test="obj.height!=null and obj.height!=''">
+				`height` = #{obj.height},
+			</if>
+			<if test="obj.constellation!=null and obj.constellation!=''">
+				`constellation` = #{obj.constellation},
+			</if>
+			<if test="obj.age!=null and obj.age!=''">
+				`age` = #{obj.age},
+			</if>
+			<if test="obj.selfintroduction!=null and obj.selfintroduction!=''">
+				`selfintroduction` = #{obj.selfintroduction},
+			</if>
+			`userMoney` = `userMoney` - #{bond},`guaranteeMoney` = #{bond},`auditStatus` = 1,`merchantLevel` = 0,
+		</set>
+		<where>
+			`userID` = #{obj.userid}
+		</where>
+	</update>
+	
+	<!-- 查询中韩行政地区 -->
+	<select id="querySharea" resultType="Sharea">
+		<include refid="selectAll"/>
+		`sharea` 
+		<where>
+			<if test="pid==null and flag==false">
+				`level` = 0
+			</if>
+			<if test="pid!=null and flag==false">
+				`pid` = #{pid}
+			</if>
+			<if test="pid!=2 and flag==true">
+				`pid` IN (SELECT `areaID` FROM `sharea` WHERE `pid` = #{pid})
+			</if>
+			<if test="pid==2 and flag==true">
+				`pid` = 2
+			</if>
+		</where>
+	</select>
+	<!-- 查询服务语言 -->
+	<select id="queryLanguagetype" resultType="Languagetype">
+		<include refid="selectAll"/>
+		`languagetype`
+	</select>
+	<!-- 查询擅长专业 -->
+	<select id="queryMajortype" resultType="Majortype">
+		<include refid="selectAll"/>
+		`majortype`
+	</select>
+	<!-- 查询商家入驻时缴纳保证金额 -->
+	<select id="queryBond" resultType="java.lang.Float">
+		SELECT bond FROM `system` LIMIT 1
+	</select>
+	<!-- 根据一级服务类别查询对应的级别 -->
+	<select id="queryServicelevel" resultType="Servicelevel">
+		<include refid="selectAll"/> 
+		`servicelevel` 
+		WHERE `stid` = #{stid}
+	</select>
+	<!-- 根据服务列表条件查询服务 -->
+	<select id="queryServices" resultType="com.accp.vo.lsm.ServicesVO">
+		SELECT u.`userID`,ser.`serviceID`,ser.`serviceTitle`,ser.`serviceCoverImg`,ser.`servicePrice`,ser.`recommendBool`,u.`shopImg`,u.`shopName`,u.`merchantLevel`
+		FROM `services` AS ser
+		INNER JOIN `user` AS u
+		ON u.`userID` = ser.`userID`
+		<trim prefix="where" prefixOverrides="and | or">
+			<!-- 文本条件 -->
+			<if test="obj.txt!=null and obj.txt!=''">
+				AND ser.`serviceTitle` LIKE '%${obj.txt}%'
+			</if>
+			<!-- 国家条件 -->
+			<if test="obj.country!=null and obj.country!='' and obj.country!=0">
+				AND ser.`country` = #{obj.country}
+			</if>
+			<!-- 城市条件：数据库会改 -->
+			<if test="obj.city!=null and obj.city!='' and obj.city!='全部'">
+				AND ser.`serviceCity` LIKE '%${obj.city}%'
+			</if>
+			<!-- 一级服务 -->
+			<if test="obj.firstStid!=null and obj.firstStid!='' and obj.stid==null and obj.stidChild==null">
+				AND (ser.`stid` = #{obj.firstStid} OR ser.`stid` IN (SELECT `stid` FROM `servicetype` WHERE `stPid` = #{obj.firstStid})
+				OR ser.`stid` IN (SELECT `stid` FROM `servicetype` WHERE `stPid` IN (SELECT `stid` FROM `servicetype` WHERE `stPid` = #{obj.firstStid})))
+			</if>
+			<!-- 二级服务 -->
+			<if test="obj.firstStid==null and obj.stid!=null and obj.stid!='' and obj.stidChild==null">
+				AND (ser.`stid` = #{obj.stid} OR ser.`stid` IN (SELECT `stid` FROM `servicetype` WHERE `stPid` = #{obj.stid}))
+			</if>
+			<!-- 三级服务 -->
+			<if test="obj.firstStid==null and obj.stid==null and obj.stidChild!=null and obj.stidChild!=''">
+				AND ser.`stid` = #{obj.stidChild}
+			</if>
+			<!-- 开始时间 -->
+			<if test="obj.startDate!=null and obj.startDate!=''">
+				AND ser.`serviceStartDate` &gt; #{obj.startDate}
+			</if>
+			<!-- 结束时间 -->
+			<if test="obj.endDate!=null and obj.endDate!=''">
+				AND ser.`serviceEndDate` &lt; #{obj.endDate}
+			</if>
+			<!-- 韩汀认证 -->
+			<if test="obj.authentication!=null and obj.authentication!='' and obj.authentication==1">
+				AND u.`authentication` = TRUE
+			</if>
+			<!-- 商家自营 -->
+			<if test="obj.authentication!=null and obj.authentication!='' and obj.authentication==2">
+				AND u.`authentication` = false
+			</if>
+			<!-- 级别 -->
+			<if test="obj.transactionValueID!=null and obj.transactionValueID!='' and obj.transactionValueMin!=null and obj.transactionValueMax!=null">
+				AND (SELECT IF(A.`firstServiceID`=#{obj.transactionValueID},(SELECT `firstServiceMoney` FROM `user` WHERE A.`userID` = `userID`),(SELECT `secondServiceMoney` FROM `user` WHERE A.`userID` = `userID`))
+				FROM `user` AS A
+				WHERE A.`userID` = ser.`userID`) BETWEEN #{obj.transactionValueMin} AND #{obj.transactionValueMax}
+			</if>
+			<!-- 综合排序 -->
+			<if test="obj.orderByPop==null and obj.orderByPrice==null">
+				ORDER BY ser.`serviceID` DESC
+			</if>
+			<!-- 人气正序排序 -->
+			<if test="obj.orderByPop==1 and obj.orderByPrice==null">
+				ORDER BY ser.`browseNumber` ASC
+			</if>
+			<!-- 人气倒序排序 -->
+			<if test="obj.orderByPop==2 and obj.orderByPrice==null">
+				ORDER BY ser.`browseNumber` DESC
+			</if>
+			<!-- 价格正序排序 -->
+			<if test="obj.orderByPop==null and obj.orderByPrice==1">
+				ORDER BY ser.`servicePrice` ASC
+			</if>
+			<!-- 价格倒序排序 -->
+			<if test="obj.orderByPop==null and obj.orderByPrice==2">
+				ORDER BY ser.`servicePrice` DESC
+			</if>
+		</trim>	
+	</select>
+	<!-- 查询服务的商家信息 -->
+	<select id="queryServiceMerchantInfo" resultType="com.accp.vo.lsm.ServiceMerchantInfo">
+		SELECT u.`userID`,u.`shopImg`,u.`shopName`,u.`merchantLevel`,
+		(SELECT `serlevelName` FROM `servicelevel` WHERE `stid` = u.`firstServiceID` AND u.`firstServiceMoney` BETWEEN `serviceIntegralMin` AND `serviceIntegralMax`) AS `firstServiceLevelName`,
+		(SELECT `serlevelName` FROM `servicelevel` WHERE `stid` = u.`secondServiceID` AND u.`secondServiceMoney` BETWEEN `serviceIntegralMin` AND `serviceIntegralMax`) AS `SecondServiceLevelName`,
+		(SELECT COUNT(1) FROM `orders` WHERE `serviceID` = #{sid}) AS `orderCount`,
+		(SELECT COUNT(1) FROM `servicecollection` WHERE `serviceID` = #{sid}) AS `collectCount`,
+		sh.`mergerName` AS `liveCityName`,u.`languageNameText`,u.`guaranteeMoney`
+		FROM `user` AS u
+		INNER JOIN `sharea` AS sh
+		ON sh.`areaID` = u.`liveCityID`
+		WHERE u.`userID` = #{uid}
+	</select>
+	<!-- 查询服务详情 -->
+	<select id="queryServiceDetailInfo" resultType="com.accp.vo.lsm.ServiceDetailInfo">
+		SELECT ser.`serviceID`,ser.`serviceTitle`,ser.`serviceFuTitle`,ser.`servicePrice`,ser.`serviceHour`,ser.`serviceCostInclude`,ser.`serviceStartDate`,ser.`serviceEndDate`,ser.`serviceIntro`,ser.`serviceCity`,u.`height`,u.`age`,u.`constellation`,u.`profession`,ser.`serviceCostTypeID`,ser.`schoolRegion`,ser.`schoolNameByCN`,ser.`schoolNameByROK`,ser.`majoyNameByCN`,ser.`majoyNameByROK`,ser.`serviceCoverImg`,ser.`serviceImgUrlOne`,ser.`serviceImgUrlTwo`,ser.`serviceImgUrlThree`,ser.`serviceImgUrlFour`
+		FROM `services` AS ser
+		INNER JOIN `user` AS u
+		ON u.`userID` = ser.`userID`
+		WHERE ser.`serviceID` = #{sid}
+	</select>
+	<!-- 查询服务描述 -->
+	<select id="queryServiceDes" resultType="Servicedes">
+		<include refid="selectAll"/>
+		`servicedes`
+		WHERE `serviceID` = #{sid}
+	</select>
+</mapper>

@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/Public/css/common.css}" />
+		<link rel="stylesheet" th:href="@{/Public/css/default.css}" />
+	</head>
+
+	<body>
+		<!--header-->
+		<div class="header" id="botop">
+			<div class="h_top">
+				<div class="b_box">
+					<div class="top_nav">
+						<a href="">首页</a><span class="ht_line"></span>
+						<a href="">商家入驻</a><span class="ht_line"></span>
+						<a href="">帮助中心</a><span class="ht_line"></span>
+						<a href="">关于韩汀</a><span class="ht_line"></span>
+						<a href="">联系我们</a>
+					</div>
+					<div class="top_right">
+						<a href="#">登录</a>
+						<span class="ht_line"></span>
+						<a href="#">注册</a>
+					</div>
+					<div class="top_right login_right">
+						<a href="">yuno</a> <span class="ht_line"></span>
+						<a href="">退出</a>
+						<span class="ht_line"></span>
+						<a href=""><img src="/Public/images/e_i.png" alt=""></a>
+					</div>
+				</div>
+			</div>
+			<div class="b_box nav_header community_header">
+				<a href="" class="logo logo_community">御品韩汀.社区</a>
+				<ul class="nav_ul">
+					<li>
+						<a href=""><span class="community_sp csp1"></span><br>自驾游</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp2"></span><br>微整形</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp3"></span><br>留学中介</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp4"></span><br>韩语翻译</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp5"></span><br>学习资源</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp6"></span><br>韩汀物流</a>
+					</li>
+					<li>
+						<a href=""><span class="community_sp csp7"></span><br>韩汀·论坛 中文</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--header end-->
+
+		<div class="bg_c5 ptb2">
+			<div class="business_settled_info_step">
+				<div class="business_settled_info_spress"></div>
+				<ul class="business_settled_info_press_ul business_fc">
+					<li class="cur">
+						<p class="mbsp_text3">入驻须知</p>
+					</li>
+					<li class="cur">
+						<p class="mbsp_text3">提交相关申请资料</p>
+					</li>
+					<li>
+						<p class="mbsp_text3">审核资料</p>
+					</li>
+					<li class="last">
+						<p class="mbsp_text3">开店成功</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="b_box pt1" id="vmCnt">
+			<form method="post" id="formreg" action="/c/lsm/merchantEnter" enctype="multipart/form-data" onsubmit="return formValidate()">
+				<h2 class="index_h2_title in2_h2_title c_10">商家入驻申请资料认证</h2>
+				<dl class="info_form_dl">
+					<dt><span class="c_x">*</span>商家类别</dt>
+					<dd class="sel_business_users">
+						<input type="hidden" name="merchanttype" value="1">
+						<a href="javascript:void(0);" class="cur">大陆商家用户</a>
+						<a href="javascript:void(0);">海外商家用户</a>
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt><span class="c_x">*</span>申请服务类别</dt>
+					<dd>
+						<input type="hidden" name="serviceID"/>
+						<div class="sel_sev_style" th:remove="${servicetypeList.size()==0?'none':'all-but-first'}">
+							<a th:each="temp,index : ${servicetypeList}" href="javascript:void(0);" th:text="${temp.stname}" th:attr="data-id=${temp.stid}">自驾游</a>
+							<a href="javascript:void(0);">微整形</a>
+							<a href="javascript:void(0);">留学中介</a>
+							<a href="javascript:void(0);">韩语翻译</a>
+							<a href="javascript:void(0);">学习资源</a>
+						</div>
+						<p class="c_4 mt10">每名商家可以选择两个服务类别，选择以后不能更改，请仔细考虑。</p>
+					</dd>
+				</dl>
+				<dl class="info_form_dl hospital" style="display:none;">
+					<dt><span class="c_x">*</span>医院名称</dt>
+					<dd><input type="text" name="hospitalname" id="hospital" value="" class="input_c inf_inc"></dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt><span class="c_x">*</span>店铺名称</dt>
+					<dd><input type="text" name="shopname" value="" class="input_c inf_inc validate[required]" required=""></dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt><span class="c_x">*</span>真实姓名</dt>
+					<dd><input type="text" name="userrealname" value="" class="input_c inf_inc validate[required]" required=""></dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>签名</dt>
+					<dd>
+						<input type="text" name="signature" value="" class="input_c inf_inc">
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt><span class="c_x">*</span>店铺保证金</dt>
+					<dd><span class="shop_margin">[[${bond}]]金币</span>
+					<span class="c_4" style="display:none;">您的金币余额不足，请先<a href="#" class="btna_s2 mlr10">充值</a>后再申请</span>
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt class="mopa"><span class="c_x">*</span>商家店铺图片</dt>
+					<dd>
+						<p class="c_4 pat1 dx_text">此图片会出现在商家主页商家介绍以及商家推荐展示图<br>格式要求：支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。</p>
+						<input name="shopimgData" type="file" id="shopimgData" style="display: none;">
+						<img src="" style="display:none;" width="100">
+						<div class="sel_file_d">
+							<a href="javascript:void(0);" class="sel_file_a" id="picbt3" onclick="shopimgData.click();">上传图片</a>
+						</div>
+					</dd>
+				</dl>
+				<div class="sel_business_show" style="display:block;">
+
+					<dl class="info_form_dl stype2">
+						<dt><span class="c_x">*</span>外国登入证号码</dt>
+						<dd>
+							<input name="" type="text" value="" class="input_c inf_inc" id="idcard2">
+						</dd>
+					</dl>
+					<dl class="info_form_dl stype2">
+						<dt><span class="c_x">*</span>登入证姓名</dt>
+						<dd>
+							<input name="identityrealname" type="text" value="" class="input_c inf_inc" id="idname">
+						</dd>
+					</dl>
+
+					<dl class="info_form_dl stype1">
+						<dt><span class="c_x">*</span>身份证</dt>
+						<dd>
+							<select id="identitytype" name="identitytype" class="sel_f sel_f2 sel_b2 mt00">
+								<option value="1">身份证号码</option>
+								<option value="2">护照号码</option>
+							</select>
+							<input name="identitynumder" type="text" value="" class="input_c inf_inc8" id="idcard1">
+						</dd>
+					</dl>
+					<dl class="info_form_dl">
+						<dt><span class="c_x">*</span>身份住址</dt>
+						<dd>
+							<select class="sel_f sel_f2 sel_b2" name="country" id="country" @change="querySharea($event)">
+								<option value="0">请选择</option>
+								<option th:each="temp,iterState : ${shareaList}" th:value="${temp.areaid}" th:text="${temp.mergername}"></option>
+							</select>
+							<select class="sel_f sel_f2 sel_b2" name="provincialid" id="provincialid" @change="querySharea($event)">
+								<option value="0">省</option>
+								<option v-for="(temp,index) in provinceList" :value="temp.areaid" v-text="temp.mergername"></option>
+							</select>
+							<select class="sel_f sel_f2 sel_b2 validate[required]" name="cityid" id="cityid" required="">
+								<option value="0">市</option>
+								<option v-for="(temp,index) in cityList" :value="temp.areaid" v-text="temp.mergername"></option>
+							</select>
+							<input name="addetail" type="text" value="" class="input_c inf_inc validate[required]" id="addetail" required="">
+						</dd>
+					</dl>
+					<dl class="info_form_dl">
+						<dt class="mopa">
+				            <span class="stype2"><span class="c_x">*</span>外国登入证件</span>
+				            <span class="stype1"><span class="c_x">*</span>身份证证件</span>
+				            <br>（正面）
+						</dt>
+						<dd>
+							<p class="c_4 pat1 dx_text">
+								<span class="stype2">请提交登入证。 </span>
+								<span class="stype1">请提交中华人民共和国居民身份证，无居民身份证的内地居民可提交《临时居民身份证》。</span>
+								<br>格式要求：支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。</p>
+							<input name="identitypositiveimgData" type="file" id="identitypositiveimgData" style="display: none;">
+							<img src="" style="display:none;" width="100">
+							<div class="sel_file_d">
+								<a href="javascript:void(0);" class="sel_file_a" id="picbt3" onclick="identitypositiveimgData.click();">上传图片</a>
+							</div>
+						</dd>
+					</dl>
+					<dl class="info_form_dl">
+						<dt class="mopa">
+				            <span class="stype2"><span class="c_x">*</span>外国登入证件</span>
+				            <span class="stype1"><span class="c_x">*</span>身份证证件</span>
+				            <br>（反面）
+						</dt>
+						<dd>
+							<p class="c_4 pat1 dx_text">
+								<span class="stype2">请提交登入证。 </span>
+								<span class="stype1">请提交中华人民共和国居民身份证，无居民身份证的内地居民可提交《临时居民身份证》。 </span>
+								<br>格式要求：支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。</p>
+							<input name="identitynegativeimgData" type="file" id="identitynegativeimgData" style="display: none;">
+							<img src="" style="display:none;" width="100">
+							<div class="sel_file_d">
+								<a href="javascript:void(0);" class="sel_file_a" id="picbt3" onclick="identitynegativeimgData.click();">上传图片</a>
+							</div>
+						</dd>
+					</dl>
+					<dl class="info_form_dl">
+						<dt class="mopa">
+				            <span class="stype2"><span class="c_x">*</span>手持外国登入证照片</span>
+				            <span class="stype1"><span class="c_x">*</span>手持身份证照片</span>
+				            <br>（正面）
+						</dt>
+						<dd>
+							<p class="c_4 pat1 dx_text">
+								<span class="stype2">请提交登入证。 </span>
+								<span class="stype1">请提交本人手持中华人民共和国居民身份证照片，无居民身份证的内地居民可提交《临时居民身份证》。 </span>
+								<br>格式要求：支持.jpg .jpeg .bmp .gif .png格式照片，大小不超过5M。</p>
+							<input name="identityhandimgData" type="file" id="identityhandimgData" style="display: none;">
+							<img src="" style="display:none;" width="100">
+							<div class="sel_file_d">
+								<a href="javascript:void(0);" class="sel_file_a" id="picbt3" onclick="identityhandimgData.click();">上传图片</a>
+							</div>
+							<div class="sfz_al"><img src="/Public/images/sfz_sf.jpg" alt=""></div>
+						</dd>
+					</dl>
+				</div>
+				<!--大陆商家用户 end-->
+
+				<dl class="info_form_dl" id="languagenametext">
+					<dt class="mopa"><span class="c_x">*</span>服务语言</dt>
+					<dd th:remove="${languagetypeList.size()==0?'none':'all-but-first'}">
+						<span th:each="temp,iterState : ${languagetypeList}" class="mrsp_10">
+							<label>
+								<input type="checkbox" name="langs[]" class="checkbox_input validate[required]" id="langs[]" th:value="${temp.languageid}">
+								<span th:text="${temp.languagename}"></span>
+							</label>
+						</span>
+						<span class="mrsp_10">
+							<label>
+								<input type="checkbox" name="langs[]" class="checkbox_input validate[required]" id="langs[]" value="2" required="">
+								韩语
+							</label>
+						</span>
+						<span class="mrsp_10">
+							<label>
+								<input type="checkbox" name="langs[]" class="checkbox_input validate[required]" id="langs[]" value="9" required="">
+								其它
+							</label>
+						</span>
+					</dd>
+					<input type="hidden" name="languagenametext"/>
+				</dl>
+				<dl class="info_form_dl" id="majornametext">
+					<dt class="mopa">擅长专业</dt>
+					<dd th:remove="${majortypeList.size()==0?'none':'all-but-first'}">
+						<span class="mrsp_10" th:each="temp,iterState : ${majortypeList}">
+							<label>
+								<input type="checkbox" name="majors[]" th:value="${temp.majorid}" class="checkbox_input">
+								<span th:text="${temp.majorname}"></span>
+							</label>
+						</span>
+						<span class="mrsp_10">
+							<label>
+								<input type="checkbox" name="majors[]" value="12" class="checkbox_input">
+								人口学
+							</label>
+						</span>
+						<span class="mrsp_10">
+							<label>
+								<input type="checkbox" name="profes[]" value="13" class="checkbox_input">
+								人类学
+							</label>
+						</span>
+					</dd>
+					<input type="hidden" name="majornametext"/>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>所在城市</dt>
+					<dd>
+						<select name="livecityid" class="sel_f sel_f2 sel_b3" id="cityid" th:remove="${liveCityList.size()==0?'none':'all-but-first'}">
+							<option th:each="temp,iterState : ${liveCityList}" th:value="${temp.areaid}" th:text="${temp.mergername}"></option>
+							<option value="402">首尔特别市</option>
+						</select>
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>邮箱地址</dt>
+					<dd>
+						<input name="merchantemail" type="email" value="" class="input_c inf_inc validate[custom[email]]" id="email">
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt><span class="c_x">*</span>联系电话</dt>
+					<dd>
+						<input name="merchantphone" type="tel" value="" class="input_c inf_inc3 validate[required,custom[number]]" id="tel" required="">
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>QQ</dt>
+					<dd>
+						<input name="qq" type="text" value="" class="input_c inf_inc3 validate[custom[number]]" id="qq">
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>微信</dt>
+					<dd>
+						<input name="wechat" type="text" value="" class="input_c inf_inc3" id="wechat">
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>职业</dt>
+					<dd>
+						<input name="profession" type="text" value="" class="input_c inf_inc3" id="zhiye">
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>身高</dt>
+					<dd>
+						<input name="height" type="text" value="" class="input_c inf_inc3 validate[custom[number]]" id="height"><span class="dw_sp c_4">CM</span>
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>星座</dt>
+					<dd>
+						<select name="constellation" class="sel_f sel_f2 sel_b3" id="constellation">
+							<option value="白羊座">白羊座</option>
+							<option value="金牛座">金牛座</option>
+							<option value="金牛座">金牛座座</option>
+							<option value="巨蟹座">巨蟹座</option>
+							<option value="狮子座">狮子座</option>
+							<option value="处女座">处女座</option>
+							<option value="天秤座">天秤座</option>
+							<option value="天蝎座">天蝎座</option>
+							<option value="射手座">射手座</option>
+							<option value="摩羯座">摩羯座</option>
+							<option value="水瓶座">水瓶座</option>
+							<option value="双鱼座">双鱼座</option>
+						</select>
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt>年龄</dt>
+					<dd>
+						<input name="age" type="text" value="" class="input_c inf_inc3 validate[custom[number]]" id="age">
+					</dd>
+				</dl>
+				<dl class="info_form_dl">
+					<dt><span class="c_x">*</span>自我介绍</dt>
+					<dd>
+						<textarea name="selfintroduction" id="content" style="width: 700px; height: 300px; display: none;"></textarea>
+					</dd>
+				</dl>
+				<div class="business_btn_d busi_rz">
+					<div class="protocol_d">
+						<h2 class="protocol_h2_title">网站文明协议</h2>
+						<p style="text-align:center;">
+							<br>
+						</p>
+						<p class="p1" align="center">
+							<br>
+						</p>
+						<p class="p1" align="center">
+							<span style="font-size:24px;" class="s1"><b>韩汀社区服务协议</b></span>
+						</p>
+						<p style="text-align:justify;" class="p1" align="center">
+							<span style="font-size:24px;" class="s1"><b><br>
+							</b></span>
+						</p>
+						<p class="p2">
+							<span class="s1"><b></b></span>
+						</p>
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">韩汀社区（以下简称</span><span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">本网站</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">）依据《韩汀社区服务协议》（以下简称</span><span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">本协议</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">）的规定提供服务，本协议具有合同效力。注册会员时，请您认真阅读本协议，审阅并接受或不接受本协议（未成年人应在法定监护人陪同下审阅）。</span><span style="font-size:16px;">若您已经注册为本网站会员，即表示您已充分阅读、理解并同意自己与本网站订立本协议，且您自愿受本协议的条款约束。本网站有权随时变更本协议并在本网站上予以公告。经修订的条款一经在本网站的公布后，立即自动生效。如您不同意相关变更，必须停止使用本网站。本协议内容包括协议正文及所有韩汀社区已经发布的各类规则。</span><b><span style="font-size:16px;">所有规则为本协议不可分割的一部分，与本协议正文具有同等法律效力。</span></b><span style="font-size:16px;">一旦您继续使用本网站，则表示您已接受并自愿遵守经修订后的条款。</span>
+						</div>
+						<span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第一条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>会员资格</strong></span>
+						</div>
+						</span>
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">一、只有符合下列条件之一的自然人或法人才能申请成为本网站会员，可以使用本网站的服务。</span>
+						</div>
+						<span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、年满十八岁，并具有民事权利能力和民事行为能力的自然人；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（二）、无民事行为能力人或限制民事行为能力人应经过其监护人的同意；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（三）、根据中国法律、法规、行政规章成立并合法存在的机关、企事业单位、社团组织和其他组织。无法人资格的单位或组织不当注册为本网站会员的，其与本网站之间的协议自始无效，本网站一经发现，有权立即注销该会员，并追究其使用本网站服务的一切法律责任。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">二、</span><b><span style="font-size:16px;">会员需要提供明确的联系地址和联系电话，并提供真实姓名或名称。</span></b>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第二条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>会员的权利和义务 </strong></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span class="s1"><span style="font-size:16px;">一、会员有权根据本协议及本网站发布的相关规则，利用本网站发布任务信息、查询会员信息、参加任务，在本网站社区及相关产品发布信息，参加本网站的有关活动及</span><b><span style="font-size:16px;">有权享受本网站提供的其他有关资讯及信息服务</span></b><span style="font-size:16px;">。 </span></span><span class="s2"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span class="s1"><span style="font-size:16px;">二、会员须自行负责自己的会员账号和密码，且须对在会员账号密码下发生的</span><b><span style="font-size:16px;">所有活动（包括但不限于发布任务信息、网上点击同意各类协议、规则、参加竞标等）承担责任</span></b><span style="font-size:16px;">。会员有权根据需要更改登录和账户提现密码。</span></span><span class="s2"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">因会员的过错导致的任何损失由会员自行承担，该过错包括但不限于：不按照交易提示操作，未及时进行交易操作，遗忘或泄漏密码，密码被他人破解，您使用的计算机被他人侵入。</span><span class="s2"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">三、会员应当向本网站提供真实准确的注册信息，包括但不限于真实姓名、身份证号</span><span style="font-size:16px;" class="s2">/</span><span style="font-size:16px;" class="s1">外国登入证</span><span style="font-size:16px;" class="s2">/</span><span class="s1"><span style="font-size:16px;">护照号码、联系电话、地址、邮政编码等。保证本网站可以通过上述联系方式与自己进行联系。同时，会员也</span><b><span style="font-size:16px;">应当</span></b><span style="font-size:16px;">在相关资料实际变更时及时更新有关注册资料。 </span></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span class="s1"><span style="font-size:16px;">四、会员</span><b><span style="font-size:16px;">不得以任何形式擅自转让或授权他人使用自己在本网站的会员帐号</span></b><span style="font-size:16px;">。 </span></span><span class="s2"></span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">五、会员有义务确保在本网站上</span><b><span style="font-size:16px;">发布的任务信息真实、准确，无误导性</span></b><span style="font-size:16px;">。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">六、会员在本网站网上发布平台，</span><b><span style="font-size:16px;">不得发布国家法律、法规、行政规章规定禁止的信息、侵犯他人知识产权或其他合法权益的信息、违背社会公共利益或公共道德</span></b><span style="font-size:16px;">的信息。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">七、会员在本网站交易中应当遵守诚实信用原则，不得以干预或操纵发布任务等不正当竞争方式扰乱网上交易秩序，不得从事与网上交易无关的不当行为，不得在交易平台上发布任何违法信息。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span class="s1"><span style="font-size:16px;">八、会员不应采取不正当手段（包括但不限于</span><b><span style="font-size:16px;">虚假任务、互换好评</span></b><span style="font-size:16px;">等方式）提高自身或他人信用度，或采用不正当手段恶意评价其他会员，降低其他会员信用度。</span></span><span class="s2"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">九、会员不得违反《银行卡业务管理办法》使用银行卡，或利用信用卡套取现金（以下简称套现）。 </span><span class="s2"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span class="s1"><span style="font-size:16px;">十、会员承诺自己在</span><b><span style="font-size:16px;">使用本网站实施的所有行为遵守法律、法规、行政规章和本网站的相关规定以及各种社会公共利益或公共道德</span></b><span style="font-size:16px;">。如有违反导致任何法律后果的发生，会员</span><b><span style="font-size:16px;">将以自己的名义独立承担相应的法律责任</span></b><span style="font-size:16px;">。 </span></span><span class="s2"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">十一、会员在本网站网上交易过程中如与其他会员</span><b><span style="font-size:16px;">因交易产生纠纷，可以请求本网站管理员从中予以协调处理</span></b><span style="font-size:16px;">。会员如发现其他会员有违法或违反本协议的行为，可以向本网站举报。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">十二、会员应当自行承担</span><b><span style="font-size:16px;">因交易产生或取得的相关费用</span></b><span style="font-size:16px;">，并依法纳税。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">十三、未经本网站书面允许，</span><b><span style="font-size:16px;">会员不得将本网站的任何资料以及在交易平台上所展示的任何信息作商业性利用</span></b><span style="font-size:16px;">（包括但不限于以复制、修改、翻译等形式制作衍生作品、分发或公开展示）。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">十四、会员不得使用以下方式登录网站或破坏网站所提供的服务：</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、以任何</span><b><span style="font-size:16px;">机器人软件、蜘蛛软件、爬虫软件、刷屏软件</span></b><span style="font-size:16px;">或其它自动方式访问或登录本网站；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（二）、通过</span><b><span style="font-size:16px;">任何方式</span></b><span style="font-size:16px;">对本公司内部结构造成或可能造成不合理或不合比例的重大负荷的行为；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（三）、通过任何方式</span><b><span style="font-size:16px;">干扰或试图干扰</span></b><span style="font-size:16px;">网站的正常工作或网站上进行的任何活动；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">十五、会员有权在同意本网站相关规则的前提下享受交易保障服务（包括但不限于保证原创、保证完成、免费修改等）。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">十六、会员同意接收来自本网站的信息，包括但不限于活动信息、交易信息、促销信息等。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第三条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>韩汀社区的权利和义务 </strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span class="s1"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">一、本网站仅为会员提供一个信息交流平台，买家可查询需求并通过站内信方式与卖家商谈，双方达成共识可通过本网站进行担保的一个交易平台，本网站对</span><b><span style="font-size:16px;">交易双方均不加以监视或控制，亦不介入交易</span></b><span style="font-size:16px;">的过程，但为解决纠纷，本网站有权协助商家和用户进行协商管理。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">二、本网站有义务在现有技术水平的基础上努力确保整个网上交流平台的正常运行，尽力避免服务中断或将中断时间限制在最短时间内，保证会员网上交流活动的顺利进行。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">三、本网站有义务对会员在注册使用本网站信息平台中所遇到的与交易或注册有关的问题及反映的情况及时作出回复。 </span><span class="s2"></span><span class="s1"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">四、本网站有权对会员的注册资料进行审查，对存在任何问题或怀疑的注册资料，本网站有权发出通知询问会员并要求会员做出解释、改正。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">五、会员因在本网站网上交易与其他会员产生纠纷的，会员将纠纷告知本网站，或本网站知悉纠纷情况的，经审核后，本网站有权通过电子邮件及电话联系向纠纷双方了解纠纷情况，并将所了解的情况通过电子邮件互相通知对方；会员通过司法机关依照法定程序要求本网站提供相关资料，本网站将积极配合并提供有关资料。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">六、因网上信息平台的特殊性，本网站没有义务对所有会员的交易行为以及与交易有关的其他事项进行事先审查，但如发生以下情形，本网站有权无需征得会员的同意限制会员的活动、向会员核实有关资料、发出警告通知、暂时中止、无限期中止及拒绝向该会员提供服务：</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、会员违反本协议或因被提及而纳入本协议的相关规则；</span>
+						</div>
+						</span>
+						<p style="text-align:justify;" class="p3">
+							<span style="font-size:16px;" class="s1">（二）、存在会员或其他第三方通知本网站，认为某个会员或具体交易事项存在违法或不当行为，并提供相关证据，而本网站无法联系到该会员核证或验证该会员向本网站提供的任何资料；</span>
+						</p>
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（三）、存在会员或其他第三方通知本网站，认为某个会员或具体交易事项存在违法或不当行为，并提供相关证据。本网站以普通非专业交易者的知识水平标准对相关内容进行判别，可以明显认为这些内容或行为可能对本网站会员或本网站造成财务损失或法律责任。</span>
+						</div>
+						<span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">七、根据国家法律、法规、行政规章规定、本协议的内容和本网站所掌握的事实依据，可以认定该会员存在违法或违反本协议行为以及在本网站交易平台上的其他不当行为，本网站有权无需征得会员的同意在本网站交易平台及所在网站上以网络发布形式公布该会员的违法行为，并有权随时作出删除相关信息、终止服务提供等处理。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">八、本网站依据本协议及相关规则，可以冻结、使用、先行赔付、退款、处置会员缴存并冻结在本网站账户内的资金。被封号的会员如果账户中有资金，在扣除会员不正当收入后，会员可申请提现。</span>
+						</div>
+						</span>
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">九、本网站有权在不通知会员的前提下，删除或采取其他限制性措施处理下列信息：包括但不限于以规避费用为目的；以炒作信用为目的；存在欺诈等恶意或虚假内容；与网上交易无关或不是以交易为目的；存在恶意竞价或其他试图扰乱正常交易秩序因素；该信息违反公共利益或可能严重损害本网站和其他会员合法利益的。</span>
+						</div>
+						<span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						<div style="text-align:justify;">
+							<span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>第四条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>服务的中断和终止 </strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span class="s1"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">一、本网站可自行全权决定以任何理由</span><span style="font-size:16px;" class="s2"> (</span><span style="font-size:16px;" class="s1">包括但不限于本网站认为会员已违反本协议及相关规则的字面意义和精神，或会员在超过</span><span style="font-size:16px;" class="s2">180</span><span style="font-size:16px;" class="s1">日内未登录本网站等</span><span style="font-size:16px;" class="s2">) </span><span style="font-size:16px;" class="s1">终止对会员的服务，并有权在两年内保存会员在本网站的全部资料（包括但不限于会员信息、产品信息、交易信息等）。同时本网站可自行全权决定，在发出通知或不发出通知的情况下，随时停止提供全部或部分服务。服务终止后，本网站没有义务为会员保留原账户中或与之相关的任何信息，或转发任何未曾阅读或发送的信息给会员或第三方。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">二、若会员向本网站提出注销本网站注册会员身份，需经本网站审核同意，由本网站注销该注册会员，会员即解除与本网站的协议关系，但本网站仍保留下列权利：</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">（一）、会员注销后，本网站有权在法律、法规、行政规章规定的时间内保留该会员的资料</span><span style="font-size:16px;" class="s2">,</span><span style="font-size:16px;" class="s1">包括但不限于以前的会员资料、交易记录等。</span><span class="s2"></span><span class="s1"></span><span class="s2"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（二）、会员注销后，若会员注销前在本网站交易平台上存在违法行为或违反本协议的行为，本网站仍可行使本协议所规定的权利。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">三、会员存在下列情况，本网站可以通过注销会员的方式终止服务：</span><span class="s2"></span><span class="s1"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、在会员违反本协议及相关规则规定时，本网站有权终止向该会员提供服务。本网站将在中断服务时通知会员。但该会员在被本网站终止提供服务后，再一次直接或间接或以他人名义注册为本网站会员的，本网站有权再次单方面终止为该会员提供服务；<br>
+				（二）、本网站发现会员注册资料中主要内容是虚假的，本网站有权随时终止为该会员提供服务；
+							</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">（三）、本协议终止或更新时，会员未确认新的协议的。</span><span class="s2"></span><span class="s1"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">（四）、其它本网站认为需终止服务的情况。</span><span class="s2"></span>
+						</div>
+						</span>
+						<p style="text-align:justify;">
+							<br>
+						</p>
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						<span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第五条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>本网站的责任范围 </strong></span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<span class="s2"></span><span style="font-size:16px;" class="s1">当会员接受该协议时，会员应当明确了解并同意∶</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">一、本网站不能随时预见到任何技术上的问题或其他困难。该等困难可能会导致数据损失或其他服务中断。本网站是在现有技术基础上提供的服务。本网站不保证以下事项∶</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、本网站将符合所有会员的要求。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（二）、本网站不受干扰、能够及时提供、安全可靠或免于出错。</span>
+						</div>
+						</span>
+						<p style="text-align:justify;">
+							<br>
+						</p>
+						<p style="text-align:justify;" class="p3">
+							<br>
+						</p>
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（三）、本服务使用权的取得结果是正确或可靠的。</span>
+						</div>
+						<span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">二、是否经由本网站下载或取得任何资料，由会员自行考虑、衡量并且自负风险，因下载任何资料而导致会员电脑系统的任何损坏或资料流失，会员应负完全责任。希望会员在使用本网站时，小心谨慎并运用常识。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">三、会员经由本网站取得的建议和资讯，无论其形式或表现，绝不构成本协议未明示规定的任何保证。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">四、基于以下原因而造成的利润、商誉、使用、资料损失或其它无形损失，本网站不承担任何直接、间接、附带、特别、衍生性或惩罚性赔偿（即使本网站已被告知前款赔偿的可能性）：</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、本网站的使用或无法使用。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（二）、会员的传输或资料遭到未获授权的存取或变更。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">（三）、本网站中任何第三方之声明或行为。 </span><span class="s2"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">（四）、本网站其它相关事宜。 </span><span class="s2"></span><span class="s1"></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">五、本网站只是为会员提供一个服务交易的平台，对于会员所发布的任务的合法性、真实性及其品质，以及会员履行交易的能力等，本网站一律不负任何担保责任。</span><span class="s2"></span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">六、本网站提供与其它互联网上的网站或资源的链接，会员可能会因此连结至其它运营商经营的网站，但不表示本网站与这些运营商有任何关系。其它运营商经营的网站均由各经营者自行负责，不属于本网站控制及负责范围之内。对于存在或来源于此类网站或资源的任何内容、广告、物品或其它资料，本网站亦不予保证或负责。因使用或依赖任何此类网站或资源发布的或经由此类网站或资源获得的任何内容、物品或服务所产生的任何损害或损失，本网站不负任何直接或间接的责任。</span><span class="s2"></span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第六条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>知识产权</strong></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">一、本网站及本网站所使用的任何相关软件、程序、内容，包括但不限于作品、图片、档案、资料、网站构架、网站版面的安排、网页设计、经由本网站或广告商向会员呈现的广告或资讯，均由本网站或其它权利人依法享有相应的知识产权，包括但不限于著作权、商标权、专利权或其它专属权利等，受到相关法律的保护。未经本网站或权利人明示授权，会员保证不修改、出租、出借、出售、散布本网站及本网站所使用的上述任何资料和资源，或根据上述资料和资源制作成任何种类产品。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1">二、本网站授予会员不可转移及非专属的使用权，使会员可以通过单机计算机使用本网站的目标代码（以下简称</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">软件</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">），但会员不得且不得允许任何第三方复制、修改、创作衍生作品、进行还原工程、反向组译，或以其它方式破译或试图破译源代码，或出售、转让</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">软件</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">或对</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">软件</span><span style="font-size:16px;" class="s2"> "</span><span style="font-size:16px;" class="s1">进行再授权，或以其它方式移转</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">软件</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">之任何权利。会员同意不以任何方式修改</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">软件</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">，或使用修改后的</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">软件</span><span style="font-size:16px;" class="s2">"</span><span style="font-size:16px;" class="s1">。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">三、会员不得经由非本网站所提供的界面使用本网站。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第七条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>隐私权</strong></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">一、信息使用：</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、本网站不会向任何人出售或出借会员的个人或法人信息，除非事先得到会员得许可。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（二）、本网站亦不允许任何第三方以任何手段收集、编辑、出售或者无偿传播会员的个人或法人信息。任何会员如从事上述活动，一经发现，本网站有权立即终止与该会员的服务协议，查封其账号。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">二、信息披露：会员的个人或法人信息将在下述情况下部分或全部被披露：</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、经会员同意，向第三方披露；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（二）、若会员是合法的知识产权使用权人并提起投诉，应被投诉人要求，向被投诉人披露，以便双方处理可能的权利纠纷；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（三）、根据法律的有关规定，或者行政、司法机关的要求，向第三方或者行政、司法机关披露；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（四）、若会员出现违反中国有关法律或者网站规定的情况，需要向第三方披露；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（五）、为提供你所要求的产品和服务，而必须和第三方分享会员的个人或法人信息</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（六）、其它本网站根据法律或者网站规定认为合适的披露；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">三、信息安全：</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（一）、在使用本网站服务进行网上交易时，请会员妥善保护自己的个人或法人信息，仅在必要的情形下向他人提供；</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">（二）、如果会员发现自己的个人或法人信息泄密，尤其是账户或诚付宝账户及密码发生泄露，请会员立即联络本网站客服，以便我们采取相应措施。</span>
+						</div>
+						</span>
+						<p style="text-align:justify;">
+							<br>
+						</p>
+						<p style="text-align:justify;" class="p3">
+							<br>
+						</p>
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						<span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第八条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>不可抗力</strong></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">因不可抗力或者其他意外事件，使得本协议的履行不可能、不必要或者无意义的，双方均不承担责任。</span><b><span style="font-size:16px;">本合同所称之不可抗力意指不能预见、不能避免并不能克服的客观情况，包括但不限于战争、台风、水灾、火灾、雷击或地震、罢工、暴动、法定疾病、黑客攻击、网络病毒、电信部门技术管制、政府行为或任何其它自然或人为造成的灾难</span></b><span style="font-size:16px;">等客观情况。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第九条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>保密</strong></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">双方保证在对讨论、签订、执行本协议中所获悉的属于对方的且无法自公开渠道获得的文件及资料（包括但不限于商业秘密、公司计划、运营活动、财务信息、</span><b><span style="font-size:16px;">技术信息</span></b><span style="font-size:16px;">、</span><b><span style="font-size:16px;">经营信息及其他商业秘密</span></b><span style="font-size:16px;">）予以保密。未经该资料和文件的原提供方同意，另一方不得向第三方泄露该商业秘密的全部或者部分内容。但法律、法规、行政规章另有规定或者双方另有约定的除外。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第十条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>争议解决方式 </strong></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">一、本协议及其规则的有效性、履行和与本协议及其规则效力有关的所有事宜，将受中华人民共和国法律管辖，任何争议仅适用中华人民共和国法律。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">二、本网站有权受理并调处您与其他会员因交易服务产生的争议，同时有权单方面独立判断其他会员对您的投诉及索偿是否成立，若本网站判断索偿成立，则本网站有权使用您已被托管的任务赏金或交纳的保证金进行相应偿付。本网站没有使用自用资金进行偿付的义务，但若进行了该等支付，您应及时赔偿本网站的全部损失，否则本网站有权通过前述方式抵减相应资金或权益，如仍无法弥补损失，则本网站保留继续追偿的权利。因本网站非司法机关，您完全理解并承认，本网站对证据的鉴别能力及对纠纷的处理能力有限，受理交易争议完全是基于您之委托，不保证争议处理结果符合您的期望，本网站有权决定是否参与争议的调处。</span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">三、凡因本协议及其规则发生的所有争议，争议双方可协商解决，若协商不成的，争议双方同意提交株洲仲裁委员会按其仲裁规则进行仲裁。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第十一条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>韩汀社区对本服务协议包括基于本服务协议制定的各项规则拥有最终解释权。</strong></span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<br>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s1"><strong>第十二条</strong></span><span style="font-size:14px;" class="s2"><strong></strong></span><span style="font-size:16px;" class="s1"><strong>附则</strong></span>
+						</div>
+						</span><span class="s1">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;">在本协议中所使用的下列词语，除非另有定义，应具有以下含义：</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">本网站</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">：在无特别说明的情况下，均指</span><span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">韩汀社区</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">（</span><span style="font-size:16px;" class="s2">www.yphting.com</span><span style="font-size:16px;" class="s1">）。 </span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">用户</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">：</span><span class="s2"></span><span class="s1"><span style="font-size:16px;">指具有</span><b><span style="font-size:16px;">完全民事行为能力的韩汀社区各项服务的使用者</span></b><span style="font-size:16px;">。</span></span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">会员</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">：</span><span class="s2"></span><span style="font-size:16px;" class="s1">指与韩汀社区签订《韩汀社区服务协议》并完成注册流程的用户。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">买家</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">：是指在本网站上进行发布任务或购买增值服务等</span><span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">买</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">操作的会员。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">卖家</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">：是指在本网站上入驻商家即销售服务、出售技能等</span><span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">卖</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">操作的会员。</span>
+						</div>
+						</span><span class="s2">
+						<div style="text-align:justify;">
+							<span style="font-size:16px;" class="s2">“</span><span style="font-size:16px;" class="s1">保证金</span><span style="font-size:16px;" class="s2">”</span><span style="font-size:16px;" class="s1">：为保证服务质量，入驻商家需要缴纳一定额度的保证金。如违法或者违反本网站条约可不予以退还保证金。</span>
+						</div>
+						</span>
+						<p style="text-align:justify;">
+							<br>
+						</p>
+					</div>
+					<a href="javascript:void(0);" onclick="$('#formreg').submit()" class="btn_jy_a">我已阅读并同意以上协议，去支付保证金</a>
+				</div>
+				<input type="submit" style="display:none">
+				<input type="hidden" name="__hash__" value="ecbc270c8264c17c850b6524b3d77619_f3b20cbb8850c5782200635cb8da291c">
+			</form>
+		</div>
+
+		<!--footer-->
+		<div class="footer community_footer_dl">
+			<dl class="footer_dl">
+				<dt>
+					<div class="footer_ewm_box">
+						<img src="/Public/images/footer_ewm.png" alt="">
+					</div>
+					<span class="ft_ewm_name">御品韩汀</span>
+				</dt>
+				<dd>
+					<p class="flink">
+						<a href="">商家入驻</a>|
+						<a href="">帮助中心</a>|
+						<a href="">人才招聘</a>|
+						<a href="">联系我们</a>|
+						<a href="">网站地图</a>|
+						<a href="">使用条款</a>
+					</p>
+					<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江二栋2502号 |网站负责人：夏先生 | 邮编：412000</p>
+					<p>官方QQ：3119683838 | 微信公众号：御品韩汀 | 官网邮箱：3119683838@qq.com | 官方热线电话：0731-2286-7673</p>
+					<p>Copyright © 2017 - 2018 yphting.com 版权所有</p>
+				</dd>
+			</dl>
+		</div>
+		<!--footer end-->
+
+		<!--right nav-->
+		<ul class="right_nav">
+			<li>
+				<a href="" class="rn_tel">客服电话</a>
+				<div class="over_show kf_tel">0731-2286-7673</div>
+			</li>
+			<li>
+				<a href="" class="rn_wx">官方微信</a>
+				<div class="over_show"><img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm"></div>
+			</li>
+			<li>
+				<a href="" class="rn_kf">在线客服</a>
+			</li>
+			<li>
+				<a href="" class="rn_top" style="display: none;">Back top</a>
+			</li>
+		</ul>
+		<!--right nav end-->
+	</body>
+	<script type="text/javascript" th:src="@{/Public/js/jquery-1.8.3.min.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/vue.js}"></script>
+	<script type="text/javascript" th:src="@{/Public/js/kindeditor/kindeditor-all-min.js}"></script>
+	<script th:inline="javascript">
+		var vm = new Vue({
+			el : "#vmCnt",
+			data:{
+				provinceList:{},
+				cityList:{},
+				flag:true
+			},
+			created:function(){
+				var vm = this;
+				if([[${userMoney}]]<[[${bond}]]){
+					vm.flag=false;
+					jQuery("span.c_4").show();
+					jQuery(".business_btn_d.busi_rz .btn_jy_a").text("您的金币余额不足，请先充值后再申请");
+				}
+			},
+			methods:{
+				//地址联动ajax
+				querySharea:function(e){
+					var vm = this;
+					var pid = jQuery(e.target).val();
+					var name = jQuery(e.target).attr("name");
+					if(pid==""&&name=="country"){
+						vm.provinceList = {};
+						vm.cityList = {};
+					}else if(pid==""&&name=="provincialid"){
+						vm.cityList = {};
+					}else{
+						jQuery.getJSON("/c/lsm/api/querySharea",{"pid":pid},function(data){
+							if(name=="country"){
+								vm.provinceList = data;
+								vm.cityList = {};
+								jQuery("#provincialid option:eq(0)").attr("selected","selected");
+							}else{
+								vm.cityList = data;
+							}
+						})
+					}
+				}
+			}
+		})
+		//悬浮右下角固定导航栏显示对应信息
+		jQuery(".right_nav li a.rn_tel, a.rn_wx").hover(function(){
+			jQuery(this).next().show(300);
+		},function(){
+			jQuery(this).next().hide();
+		})
+		//当滚动条距离浏览器顶部500px或以上时显示回到顶部按钮
+		jQuery(window).scroll(function() {
+			if(jQuery(window).scrollTop() >= 500) {
+				jQuery(".rn_top").fadeIn(300);
+			} else {
+				jQuery(".rn_top").fadeOut(300);
+			}
+		})
+		//点击回到顶部触发
+		jQuery(".rn_top").click(function() {
+			jQuery('body,html').animate({
+				scrollTop: 0
+			}, 500);
+		});
+		//富文本
+		KindEditor.ready(function(K) {
+			editor = K.create('#content', {
+				afterBlur: function() { this.sync(); },
+				uploadJson: '/index.php/Home/Kindeditor/uploadpe/desc/width/860.html',
+				allowFileManager: false,
+				langType: 'zh_CN',
+				allowPreviewEmoticons: false,
+				allowImageUpload: true,
+				height: "300px",
+				width: "95%"
+			});
+		});
+		//选择服务类别
+		jQuery(".sel_sev_style a").live("click",function(){
+			if(jQuery(this).attr("class")=="cur"){
+				jQuery(this).removeAttr("class");
+				jQuery("[name=serviceID]").val(jQuery("[name=serviceID]").val().replace(jQuery(this).attr("data-id"),"").replace(",",""));
+				if(jQuery(this).text()=="微整形"){
+					jQuery("[name=hospitalname]").val("");
+					jQuery(".info_form_dl.hospital").hide();
+				}
+			}else if(jQuery(".sel_sev_style a.cur").length!=2){
+				jQuery(this).attr("class","cur");
+				if(jQuery("[name=serviceID]").val()==""){
+					jQuery("[name=serviceID]").val(jQuery(this).attr("data-id"));
+				}else{
+					jQuery("[name=serviceID]").val(jQuery("[name=serviceID]").val()+","+jQuery(this).attr("data-id"));
+				}
+				if(jQuery(this).text()=="微整形"){
+					jQuery(".info_form_dl.hospital").show();
+				}
+			}
+		});
+		//选择商家类别
+		jQuery(".sel_business_users a").click(function(){
+			jQuery(this).attr("class","cur").siblings().removeAttr("class");
+			if(jQuery(this).text()=="大陆商家用户"){
+				jQuery("[name=merchanttype]").val(1);
+				jQuery(".info_form_dl.stype2").hide();
+				jQuery(".info_form_dl.stype1").show();
+				jQuery("#idcard1").attr("name","identitynumder");
+				jQuery("#idcard2").removeAttr("name");
+				jQuery("[name=identityrealname]").val("");
+				jQuery("#identitytype").attr("name","identitytype");
+				jQuery("span.stype2").hide().siblings("span").css("display","inline");
+			}else{
+				jQuery("[name=merchanttype]").val(2);
+				jQuery(".info_form_dl.stype2").show();
+				jQuery(".info_form_dl.stype1").hide();
+				jQuery("#idcard2").attr("name","identitynumder");
+				jQuery("#idcard1").removeAttr("name");
+				jQuery("#identitytype").removeAttr("name");
+				jQuery("span.stype2").css("display","inline").siblings("span").hide();
+			}
+		});
+		//选择预览图片
+		$("[type=file]").on("change",
+			function(e) {
+				//当前元素
+				var el = $(this);
+				var fr = new FileReader();//读取文件
+				var file = this.files[0];//选择第一个文件
+				var _temp = file.name.match(/\.jpg|\.jpeg|\.png|\.gif|\.bmp/i);
+				if (!_temp) {
+					this.value = "";
+					alert("目前只支持jpg,jpeg,bmp,gif,png格式图片文件");
+					return false;
+				} else if (file.size > (1024 * 1024 * 5)) {
+					this.value = "";
+					alert("目前只支持小于5M大小图片文件");
+					return false;
+				}
+				fr.readAsDataURL(file);//读取文件
+				//操作文件事件
+				fr.onload = function() {
+					var base64Data = this.result;//获得base编码字符串格式
+					el.next().attr("src",base64Data).show();
+					el.next().next().find("a").text("重新上传");
+				};
+			}
+		);
+		//表单验证数据完整性方法
+		function formValidate(){
+			//获取自我介绍内容
+			var selfintroduction = $(".ke-edit-iframe").contents().find(".ke-content").html();
+			//将内容赋值给textarea标签
+			jQuery("[name=selfintroduction]").text(selfintroduction);
+			if(!vm.flag){
+				return false;
+			}
+			else if(jQuery("[name=serviceID]").val()==""){
+				alert("请选择申请服务类别！");
+				return false;
+			}else if(jQuery(".info_form_dl.hospital").css("display")=="block"&&jQuery("[name=hospitalname]").val()==""){
+				alert("请填写医院名称！");
+				return false;
+			}else if(jQuery("[name=shopname]").val()==""){
+				alert("请填写店铺名称！");
+				return false;
+			}else if(jQuery("[name=userrealname]").val()==""){
+				alert("请填写真实姓名！");
+				return false;
+			}else if(jQuery("[name=shopimgData]").val()==""){
+				alert("请上传商家店铺图片！");
+				return false;
+			}else if(jQuery("[name=merchanttype]").val()==1&&jQuery("[name=identitynumder]").val()==""){
+				alert("请填写身份证号码！");
+				return false;
+			}else if(jQuery("[name=merchanttype]").val()==2&&jQuery("[name=identitynumder]").val()==""){
+				alert("请填写外国登入证号码！");
+				return false;
+			}else if(jQuery("[name=merchanttype]").val()==2&&jQuery("[name=identityrealname]").val()==""){
+				alert("请填写登入证姓名！");
+				return false;
+			}else if(jQuery("#country").val()==0||jQuery("#provincialid").val()==0||jQuery("#cityid").val()==0||jQuery("[name=addetail]").val()==""){
+				alert("请将身份住址填写完整！");
+				return false;
+			}else if(jQuery("[name=identitypositiveimgData]").val()==""){
+				alert("请上传证件正面图片！");
+				return false;
+			}else if(jQuery("[name=identitynegativeimgData]").val()==""){
+				alert("请上传证件反面图片！");
+				return false;
+			}else if(jQuery("[name=identityhandimgData]").val()==""){
+				alert("请上传手持证件正面图片！");
+				return false;
+			}else if(jQuery("#languagenametext dd .mrsp_10 input:checked").length==0){
+				alert("请选择服务语言！");
+				return false;
+			}else if(jQuery("[name=merchantphone]").val()==""){
+				alert("请填写联系电话！");
+				return false;
+			}else if(jQuery("[name=selfintroduction]").text()==""){
+				alert("请填写自我介绍！");
+				return false;
+			}else{
+				if(jQuery("#country").val()==1){	//是中国地址
+					jQuery("#provincialid").attr("name","provincialid");
+					jQuery("#cityid").attr("name","cityid");
+				}else if(jQuery("#country").val()==2){	//是韩国地址
+					jQuery("#provincialid").attr("name","cityid");
+					jQuery("#cityid").attr("name","countyid");
+				}
+				jQuery("[name=languagenametext]").val("");	//清空服务语言隐藏域值
+				jQuery("[name=majornametext]").val("");	//清空擅长专业隐藏域值
+				//循环服务语言多选框集合赋值到隐藏input的val中
+				jQuery("#languagenametext dd .mrsp_10 input:checked").each(function(e,obj){
+					if(jQuery("[name=languagenametext]").val()==""){
+						jQuery("[name=languagenametext]").val(jQuery(obj).next().text());
+					}else{
+						jQuery("[name=languagenametext]").val(jQuery("[name=languagenametext]").val()+" "+jQuery(obj).next().text());
+					}
+				});
+				//循环擅长专业多选框集合赋值到隐藏input的val中
+				jQuery("#majornametext dd .mrsp_10 input:checked").each(function(e,obj){
+					if(jQuery("[name=majornametext]").val()==""){
+						jQuery("[name=majornametext]").val(jQuery(obj).next().text());
+					}else{
+						jQuery("[name=majornametext]").val(jQuery("[name=majornametext]").val()+" "+jQuery(obj).next().text());
+					}
+				});
+				return true;
+			}
+		}
+	</script>
+</html>

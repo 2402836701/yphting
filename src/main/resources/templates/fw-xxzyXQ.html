@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>学习资源详情_韩汀社区</title>
+		<link rel="stylesheet" th:href="@{/Public/css/owl.carousel.css}" />
+		<link rel="stylesheet" th:href="@{/Public/css/common.css}" />
+		<style type="text/css">
+			.sc_btn1{
+				width:78.359px;
+			}
+		</style>
+	</head>
+	<body>
+		<iframe name="topost" id="topost" style="display:none;"></iframe>
+
+		<!--header-->
+		<div class="header" id="botop">
+				<div class="h_top">
+				<div class="b_box">
+					<div class="top_nav"><a href="/index.php/">首页</a><span class="ht_line"></span><a href="/index.php/Home/Member/seller.html">商家入驻</a><span class="ht_line"></span><a href="/index.php/Home/About/help.html">帮助中心</a><span class="ht_line"></span><a href="/index.php/Home/About/index.html">关于韩汀</a><span class="ht_line"></span><a href="/index.php/Home/About/contact.html">联系我们</a></div>
+					
+					<div class="top_right login_right">
+											<a href="/index.php/Home/Seller/index.html">透</a>			<span class="ht_line"></span><a href="/index.php/Home/Member/logout.html">退出</a>
+		            <span class="ht_line"></span><a href="/index.php/Home/Member/sms.html"><img src="/Public/images/e_i.png" alt=""></a>
+
+					</div>
+				</div>
+			</div>
+		    <div class="b_box nav_header community_header">
+				<a href="/index.php/" class="logo logo_community">御品韩汀.社区</a>
+				<ul class="nav_ul">
+					<li><a href="/index.php/Home/Service/driving.html"><span class="community_sp csp1"></span><br>自驾游</a></li>
+					<li><a href="/index.php/Home/Service/plastic.html"><span class="community_sp csp2"></span><br>微整形</a></li>
+					<li><a href="/index.php/Home/Service/agents.html"><span class="community_sp csp3"></span><br>留学中介</a></li>
+					<li><a href="/index.php/Home/Service/translate.html"><span class="community_sp csp4"></span><br>韩语翻译</a></li>
+					<li class="cur"><a href="/index.php/Home/Service/learning.html"><span class="community_sp csp5"></span><br>学习资源</a></li>
+					<li><a href="/index.php/Home/Service/logistics.html"><span class="community_sp csp6"></span><br>韩汀物流</a></li>
+					<li><a href="/index.php/Home/Bbs/index.html"><span class="community_sp csp7"></span><br>韩汀·论坛 中文</a></li>
+				</ul>
+			</div>     
+		</div>
+		<a href="/index.php/Home/About/help.html" class="zy_box">预定流程指引</a>
+
+		<div class="bg_c2 pt1 zindex2">
+			<div class="b_box">
+		    	
+		    	<!--left bar-->
+				<div class="business_detail_left">
+					<dl class="business_detail_user_dl">
+						<dt>
+							<a href="javascript:void(0);">
+								<img th:src="${serMerchantObj.shopImg}" th:alt="${serMerchantObj.shopName}" class="bdu_img">
+							</a>
+						</dt>
+						<dd>
+							<div class="business_user_top_d">
+								<div class="pre_c_name fl"><a href="javascript:void(0);" th:text="${serMerchantObj.shopName}">小明同学</a></div>
+								<div class="star_pl"><span class="star_pl_sp" th:style="|width:${serMerchantObj.merchantLevel*20}%;|"></span></div>
+								<ul class="jp_ul_list">
+									<li th:if="${serMerchantObj.firstServiceLevelName!=null and serMerchantObj.firstServiceLevelName!=''}" th:text="${serMerchantObj.firstServiceLevelName}">铜牌商家</li><li th:if="${serMerchantObj.SecondServiceLevelName!=null and serMerchantObj.SecondServiceLevelName!=''}" th:text="${serMerchantObj.SecondServiceLevelName}">韩汀童生</li>						
+								</ul>
+							</div>
+							<div class="business_c_info business_c_info2 bdbox_show">
+								<span class="bcin_sp bsp1"></span>
+								<a href="javascript:void(0);">
+									订单[[${serMerchantObj.orderCount==null||serMerchantObj.orderCount==''?0:serMerchantObj.orderCount}]]
+								</a>
+								<span class="bbs_line"></span>
+								<a href="javascript:void(0);">
+								<span class="bcin_sp bsp2"></span>
+								[[${serMerchantObj.liveCityName}]]
+								</a>
+								<span class="bbs_line"></span>
+								<a href="javascript:void(0);" class="lan_my">
+								<span class="bcin_sp bsp3"></span>
+								[[${serMerchantObj.languageNameText}]]
+								<span class="bbs_line"></span>
+								<a href="javascript:void(0);" th:if="${serMerchantObj.guaranteeMoney>0}">
+								<span class="bzj_i"></span>保证金缴纳
+								</a>
+								<span class="bbs_line"></span>
+								<a href="javascript:void(0);" class="btna_a_jb">举报</a>
+								<span class="bbs_line"></span>
+							<div class="bdsharebuttonbox bdshare-button-style0-24" data-bd-bind="1538900686003"><a href="javascript:void(0);" class="btna_s2 bds_more" data-cmd="more"><span class="bcin_sp bsp4"></span>分享</a></div>
+							<a href="javascript:void(0);" class="sc_btn1" rel="577" style="width:auto;"><span class="sc_ic"></span>收藏&nbsp;[[${serMerchantObj.collectCount==null||serMerchantObj.collectCount==''?0:serMerchantObj.collectCount}]]</a>
+							<input type="hidden" id="sc_ic" value="0">
+							</div>
+						</dd>
+					</dl>
+					
+					<div class="business_detail_con">
+						<h1 class="business_detail_title" th:text="${serDetailObj.serviceTitle}">测试资源主标题</h1>
+						<div class="business_detail_img_box">
+							<div class="business_detail_big_img"><img width="750" height="500"  th:src="${serDetailObj.serviceCoverImg}"  alt="测试资源主标题" id="business_detail_big_img"></div>
+							<ul class="business_detail_img_ulist">
+								<li class="cur" th:if="${serDetailObj.serviceCoverImg!=null}">
+									<img th:src="${serDetailObj.serviceCoverImg}" alt="测试资源主标题">
+								</li> 
+								<li th:if="${serDetailObj.serviceImgUrlOne!=null}">
+									<img th:src="${serDetailObj.serviceImgUrlOne}" alt="测试资源主标题">
+								</li>	
+								<li th:if="${serDetailObj.serviceImgUrlTwo!=null}">
+									<img th:src="${serDetailObj.serviceImgUrlTwo}" alt="测试资源主标题">
+								</li>
+								<li th:if="${serDetailObj.serviceImgUrlThree!=null}">
+									<img th:src="${serDetailObj.serviceImgUrlThree}" alt="测试资源主标题">
+								</li>
+								<li th:if="${serDetailObj.serviceImgUrlFour!=null}">
+									<img th:src="${serDetailObj.serviceImgUrlFour}" alt="测试资源主标题">
+								</li>																
+							</ul>
+						</div>
+						<div class="business_detail_text_box"></div>
+						<ul class="business_detail_ul_list">
+							<li>
+								<h4 class="business_h4">关于我</h4>
+								<p class="business_pt"><span th:if="${serDetailObj.height!=null}" th:text="${serDetailObj.height+'cm'}">170cm</span><span th:if="${serDetailObj.age!=null}" th:text="${serDetailObj.age+'岁'}">19岁</span><span th:if="${serDetailObj.constellation!=null}" th:text="${serDetailObj.constellation}">射手座</span><span th:if="${serDetailObj.profession!=null}" th:text="${serDetailObj.profession}">java开发工程师</span></p>
+							</li>
+							<li>
+								<h4 class="business_h4">费用说明</h4>
+								<p class="business_pt" th:text="${serDetailObj.serviceCostTypeID}">测试资源费用说明</p>
+							</li>
+							<li class="nobr">
+								<h4 class="business_h4">服务介绍</h4>
+								<dl class="business_servie_dl">
+									<div th:text="${serDetailObj.serviceIntro}">测试资源服务简介</div>
+								</dl>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="business_detail_right">
+					<!--自驾游在线预约-->
+					<div class="business_part_top">
+						<div class="business_detail_online_box" style="bottom: -450px;height: 410px;">
+							<h2 class="online_h2">在线预约</h2>
+							<div class="online_part">
+								<div class="fr"><span class="num_1" th:text="${serDetailObj.servicePrice}">200</span></div>
+								<p>[[${serDetailObj.serviceFuTitle==null||serDetailObj.serviceFuTitle==''?'无副标题':serDetailObj.serviceFuTitle}]]</p>
+							</div>
+							<form id="formbook" method="post" action="/index.php/Home/Service/booking.html">
+								<input type="hidden" name="aid" value="577">
+								<input type="hidden" name="num" id="num" value="1">
+								<div class="online_part">
+									<p class="c_4 p_tti">学科</p>
+									<div class="study_online_d">
+										<p th:text="${serDetailObj.schoolRegion}">韩国 首尔特别市  钟 路 区 </p>
+										<p class="mt10">[[${serDetailObj.schoolNameByCN}]]<br>[[${serDetailObj.majoyNameByCN}]]</p>
+										<p>   </p>
+										<p>[[${serDetailObj.schoolNameByROK}]]<br>[[${serDetailObj.majoyNameByROK}]]</p>
+									</div>
+								</div>					
+								<a href="javascript:void(0);" class="online_sq_btn">
+									<span class="st_1">金币合计</span>
+									<span class="st_2">购买资料</span>
+									<span class="st_3" th:text="${serDetailObj.servicePrice}">100</span>
+									<span class="st_4"></span>
+								</a>
+								<input type="hidden" name="__hash__" value="57de28d08887d10dad7fa46ea60c8e61_a49323e26c9c599b6bce3a64abe06420">
+							</form>
+						</div>
+					</div>
+					<div class="business_part">
+						<h2 class="bus_h2">预定流程介绍</h2>
+						<div class="lc_js_d"><img src="/Public/images/lc_js.png" alt=""></div>
+					</div>
+					
+					<div class="ad_r2">
+						<a href="http://www.yphting.com/index.php?m=Home&amp;c=About&amp;a=index&amp;key=39"><img src="/Uploads/adv/2017-06/20170610031936-62734.jpg" alt="AR的广告"></a>			
+					</div>
+				</div>
+				<!--right bar end-->
+		        
+		        <div class="clear"></div>
+				
+			</div>
+		</div>
+		
+		<div class="b_box">	
+			<div class="business_dtail_bottom_box">
+				<h2 class="c_4 pl_title"><span>0</span>条评价</h2>
+				<dl class="business_dtail_bottom_dl">
+					<dt>
+						<p class="pf_text">3.0</p>
+						<div class="star_pl pl_star_d"><span class="star_pl_sp" style="width:60%;"></span></div>
+						<div class="pf_num">共有<span>0</span>人评价</div>
+					</dt>
+					<dd>
+						<ul class="business_dtail_bottom_ullist">
+							<li>
+								<span class="bdbu_sp_left">非常棒</span>
+								<div class="bdbu_sp_line_b">
+									<div class="bdbu_line_b"><span class="bdbu_line_sp" style="width:0%;"></span></div><span class="bdbu_line_text full_c">0</span>
+								</div>
+							</li>
+							<li>
+								<span class="bdbu_sp_left">很好</span>
+								<div class="bdbu_sp_line_b">
+									<div class="bdbu_line_b"><span class="bdbu_line_sp" style="width:0%;"></span></div><span class="bdbu_line_text">0</span>
+								</div>
+							</li>
+							<li>
+								<span class="bdbu_sp_left">一般</span>
+								<div class="bdbu_sp_line_b">
+									<div class="bdbu_line_b"><span class="bdbu_line_sp" style="width:0%;"></span></div><span class="bdbu_line_text">0</span>
+								</div>
+							</li>
+							<li>
+								<span class="bdbu_sp_left">差</span>
+								<div class="bdbu_sp_line_b">
+									<div class="bdbu_line_b"><span class="bdbu_line_sp" style="width:0%;"></span></div><span class="bdbu_line_text">0</span>
+								</div>
+							</li>
+							<li>
+								<span class="bdbu_sp_left">糟透了</span>
+								<div class="bdbu_sp_line_b">
+									<div class="bdbu_line_b"><span class="bdbu_line_sp" style="width:0%;"></span></div><span class="bdbu_line_text">0</span>
+								</div>
+							</li>
+						</ul>
+					</dd>
+				</dl>
+				
+				<div class="business_dtail_comment">
+					<ul class="member_s_list_ul"></ul>
+					<!--page-->
+		              <div class="page_w">
+		                  <div class="page"></div>
+		              </div>
+		              <!--page end-->
+				</div>
+				
+			</div>
+			
+				<!--同城自驾游服务-->
+				<div class="service_recs" id="service_recs_title">同城英语资料服务</div>
+				<div id="service_recs" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
+					<div class="owl-wrapper-outer">
+						<div class="owl-wrapper" style="width: 6000px; left: 0px; display: block; transition: all 1000ms ease 0s; transform: translate3d(0px, 0px, 0px);">
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/283.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="庆熙大学-环境造景系-地形设计"></div>
+											<div class="per_text">
+												<h3>庆熙大学-环境造景系-地形设计</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170426022638-77543.jpg" alt="゛﹏情何以堪" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">゛﹏小汀翻译</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">450</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/282.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="造景-园林树木学"></div>
+											<div class="per_text">
+												<h3>造景-园林树木学</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170426022638-77543.jpg" alt="゛﹏情何以堪" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">゛﹏小汀翻译</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">35</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/281.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg"alt="庆熙大学--绿化种植设计"></div>
+											<div class="per_text">
+												<h3>庆熙大学--绿化种植设计</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170426022638-77543.jpg" alt="゛﹏情何以堪" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">゛﹏小汀翻译</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">380</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/280.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="园林资料员一本通"></div>
+											<div class="per_text">
+												<h3>园林资料员一本通</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170426022638-77543.jpg" alt="゛﹏情何以堪" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">゛﹏小汀翻译</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">120</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/279.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="庆熙大学-造景培植学教材"></div>
+											<div class="per_text">
+												<h3>庆熙大学-造景培植学教材</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170426022638-77543.jpg" alt="゛﹏情何以堪" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">゛﹏小汀翻译</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">350</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/278.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="庆熙大学-造景规划配套教材"></div>
+											<div class="per_text">
+												<h3>庆熙大学-造景规划配套教材</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170426022638-77543.jpg" alt="゛﹏情何以堪" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">゛﹏小汀翻译</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">350</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/272.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="造景工学课件及复习资料"></div>
+											<div class="per_text">
+												<h3>造景工学课件及复习资料</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170430045548-11034.jpg" alt="姬菇凉" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">姬菇凉的店铺</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">680</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/271.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="自行车台模型设计"></div>
+											<div class="per_text">
+												<h3>自行车台模型设计</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170430045548-11034.jpg" alt="姬菇凉" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">姬菇凉的店铺</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">1200</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/270.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="여가관광지계획론-旅游规划中文翻译书籍"></div>
+											<div class="per_text">
+												<h3>여가관광지계획론-旅游规划中文翻译书籍</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170430045548-11034.jpg" alt="姬菇凉" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">姬菇凉的店铺</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">480</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="owl-item" style="width: 300px;">
+								<div class="item">
+									<ul class="us_ul_list">
+										<li>
+											<a href="/index.php/Home/Service/detail/id/167.html">
+											<div class="per_pic"><img src="/Uploads/image/2017-04/20170427081238-39250.jpg" alt="庆熙大学环境造景系毕业展"></div>
+											<div class="per_text">
+												<h3>庆熙大学环境造景系毕业展</h3>
+												<dl class="star_user_dl fl">
+													<dt><img src="/Uploads/image/2017-04/20170430045548-11034.jpg" alt="姬菇凉" class="star_user_photo"></dt>
+													<dd>
+														<div class="star_user_name_s"><h3 class="star_user_name">姬菇凉的店铺</h3></div>
+													</dd>
+												</dl>
+												<div class="fr i_3">3500</div>
+												<div class="clear"></div>
+											</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>			
+					<div class="owl-controls clickable">
+						<div class="owl-buttons">
+							<div class="owl-prev">prev</div>
+							<div class="owl-next">next</div>
+						</div>
+					</div>
+				</div>
+		
+			<div class="ad_box2">
+				<a href=""><img src="/Uploads/adv/2018-04/20180414123932-28064.jpg" alt="底部广告 说吧"></a>	
+			</div>
+			<!--ad end-->
+			<!--注意!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+			<!--注意!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+			<!--注意!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+			<!--
+            	作者：2402836701@qq.com
+            	时间：2018-10-07
+            	描述：如果不是商家才会出现下面这个a标签，然后记得当前最大的父级div去掉类名pb65
+            -->
+			<a href="/index.php/Home/Member/seller.html" class="footer_text">
+				<h2 class="index_h2_title c_0">加入我们<span class="c_1">•</span>招募韩国商家、华人</h2>
+				<div class="bg_ic_1">招募韩国商家、海外留学生、华人兼司机、导游</div>
+				<div class="bt_btn_d"><span class="btn_a_more bs_bt_a">商家入驻</span></div>
+			</a>
+		</div>
+
+		<!--footer-->
+		<div class="footer community_footer_dl">
+			<dl class="footer_dl">
+				<dt>
+					<div class="footer_ewm_box"><img src="/Public/images/footer_ewm.png" alt=""></div>
+					<span class="ft_ewm_name">御品韩汀</span>
+				</dt>
+				<dd>
+					<p class="flink"><a href="/index.php/Home/Member/seller.html">商家入驻</a>|<a href="/index.php/Home/About/help.html">帮助中心</a>|<a href="/index.php/Home/About/index/key/jobs.html">人才招聘</a>|<a href="/index.php/Home/About/contact.html">联系我们</a>|<a href="/index.php/Home/About/sitemap.html">网站地图</a>|<a href="/index.php/Home/About/terms.html">使用条款</a></p>
+					<p>湘ICP备16017200号-2 | 地址：湖南省株洲市天元区丽景滨江二栋2502号 |网站负责人：夏先生 |   邮编：412000</p>
+		
+					<p>官方QQ：3119683838 | 微信公众号：御品韩汀 | 官网邮箱：3119683838@qq.com | 官方热线电话：0731-2286-7673</p>
+		
+					<p>Copyright © 2017 - 2018 yphting.com 版权所有</p>		</dd>
+			</dl>
+		</div>
+		
+		<!--right nav-->
+		<ul class="right_nav">
+			<li><a href="javascript:void(0);" class="rn_tel">客服电话</a><div class="over_show kf_tel">0731-2286-7673</div></li>
+			<li><a href="javascript:void(0);" class="rn_wx">官方微信</a><div class="over_show"><img src="/Public/images/r_ewm.jpg" alt="" class="gw_ewm"></div></li>
+			<li><a href="tencent://Message/?Uin=3119683838&amp;websiteName=http://yphting.zglxkj.com=&amp;Menu=yes" class="rn_kf">在线客服</a></li>
+			<li><a href="#" class="rn_top" style="display: none;">Back top</a></li>
+		</ul>
+		
+		<!--pop bg-->
+		<div id="pop_bg"></div>
+		<div class="pop_con">
+			<a href="javascript:void(0);" class="close_pop"></a>
+			<h2 class="pop_h2">选择举报原因</h2>
+			<form id="formreport">
+				<ul class="pop_sel_jq">
+								<li><label><input type="radio" class="radio_input" name="reason" value="广告或垃圾信息">广告或垃圾信息</label></li><li><label><input type="radio" class="radio_input" name="reason" value="色情、淫秽或低俗内容">色情、淫秽或低俗内容</label></li><li><label><input type="radio" class="radio_input" name="reason" value="激进时政或意识形态话题">激进时政或意识形态话题</label></li><li><label><input type="radio" class="radio_input" name="reason" value="其他原因">其他原因</label></li>		</ul>
+				<input type="hidden" name="aid" value="577">
+				<div class="t_c"><a href="javascript:void(0);" class="btn_jba">举报</a></div>
+			<input type="hidden" name="__hash__" value="57de28d08887d10dad7fa46ea60c8e61_a49323e26c9c599b6bce3a64abe06420"></form>
+		</div>
+	</body>
+	
+	<script type="text/javascript " th:src="@{/Public/js/jquery-1.8.3.min.js}"></script>
+	<script>
+		//同城英语资料服务类名为owl-wrapper的div的translate3d-X的数值
+		var transX = parseInt(jQuery("#service_recs .owl-wrapper").css("transform").replace(/[^0-9\-,]/g,'').split(',')[4]);
+		//点击细节图切换大图
+		jQuery(".business_detail_img_ulist li:not(.cur)").live("click",function(){
+			jQuery(this).attr("class","cur");
+			jQuery(this).siblings().removeAttr("class");
+			jQuery(".business_detail_big_img img").attr("src",jQuery(this).find("img").attr("src"));
+		})
+		//点击同城英语资料服务左右切换按钮
+		jQuery(".owl-prev, .owl-next").click(function(){
+			var className = jQuery(this).attr("class");
+			var divWidth = parseInt(jQuery("#service_recs .owl-wrapper>.owl-item").css("width").replace("px",""));
+			if(className=='owl-prev'){
+				if(transX==0){
+					transX = -1800;
+					jQuery("#service_recs .owl-wrapper").css("transition","all 1000ms ease 0s");
+					jQuery("#service_recs .owl-wrapper").css("transform","translate3d("+transX+"px, 0px, 0px)");
+				}else{
+					transX+=divWidth;
+					jQuery("#service_recs .owl-wrapper").css("transition","all 200ms ease 0s");
+					jQuery("#service_recs .owl-wrapper").css("transform","translate3d("+transX+"px, 0px, 0px)");
+				}
+			}else{
+				if(transX==-1800){
+					transX = 0;
+					jQuery("#service_recs .owl-wrapper").css("transition","all 1000ms ease 0s");
+					jQuery("#service_recs .owl-wrapper").css("transform","translate3d("+transX+"px, 0px, 0px)");
+				}else{
+					transX-=divWidth;
+					jQuery("#service_recs .owl-wrapper").css("transition","all 200ms ease 0s");
+					jQuery("#service_recs .owl-wrapper").css("transform","translate3d("+transX+"px, 0px, 0px)");
+				}
+			}
+		})
+		jQuery(".right_nav li a.rn_tel, a.rn_wx").hover(function(){
+			jQuery(this).next().show(300);
+		},function(){
+			jQuery(this).next().hide();
+		})
+		jQuery(window).scroll(function() {
+			//获取预约div距离页面顶部的距离
+			var divTop = jQuery(".business_part_top").offset().top;	
+			//获取当前滚动窗口距离顶部的距离
+			var winTop = jQuery(window).scrollTop();
+			if(jQuery(".clear").offset().top-jQuery(window).scrollTop()<0){
+				jQuery(".business_detail_online_box").attr("class","business_detail_online_box fixed_online2");
+			}else if(divTop-winTop<0){
+				jQuery(".business_detail_online_box").attr("class","business_detail_online_box fixed_online");
+			}else{
+				jQuery(".business_detail_online_box").attr("class","business_detail_online_box");
+			}
+			
+			if(jQuery(window).scrollTop() >= 500) {
+				jQuery(".rn_top").fadeIn(300);
+			} else {
+				jQuery(".rn_top").fadeOut(300);
+			}
+		})
+		jQuery(".rn_top").click(function() {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 500);
+		});
+		
+	</script>
+
+</html>
